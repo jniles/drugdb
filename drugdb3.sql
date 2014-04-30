@@ -1,155 +1,155 @@
-DROP DATABASE drugdb;
-CREATE DATABASE drugdb;
-USE drugdb;
+DROP DATABASE drugsdb;
+CREATE DATABASE drugsdb;
+USE drugsdb;
 
 
-CREATE TABLE CENTER (
+CREATE TABLE centers (
 	Location		VARCHAR(50)		NOT NULL PRIMARY KEY,
 	email_list		BLOB)
 DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE DRUG (
+CREATE TABLE drugs (
 	Dname		VARCHAR(50)		NOT NULL PRIMARY KEY)
 DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE  DRUG_PER_LOC (
+CREATE TABLE  drugs_per_locs (
 	Ctr_loc		VARCHAR(50)		NOT NULL,
 	Dname		VARCHAR(50)		NOT NULL,
 	Par_lvl		INT				DEFAULT 30,
 	Flag		CHAR(5)			DEFAULT FALSE,
 	Count		INT				DEFAULT NULL,
 	PRIMARY KEY (Ctr_loc, Dname),
-	FOREIGN KEY (Ctr_loc) REFERENCES CENTER (Location)
+	FOREIGN KEY (Ctr_loc) REFERENCES centers (Location)
 		ON DELETE CASCADE	ON UPDATE CASCADE,
-	FOREIGN KEY (Dname) REFERENCES DRUG (Dname)
+	FOREIGN KEY (Dname) REFERENCES drugs (Dname)
 		ON DELETE CASCADE	ON UPDATE CASCADE)
 DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE DATE_COUNT (
+CREATE TABLE date_counts (
 	Ctr_loc		VARCHAR(50)		NOT NULL,
 	Dname		VARCHAR(50)		NOT NULL,
 	Time_stamp	TIMESTAMP		NOT NULL,
 	Count		INT				DEFAULT NULL,
 	PRIMARY KEY(Ctr_loc, Dname, Time_stamp),
-	FOREIGN KEY (Ctr_loc) REFERENCES CENTER (Location)
+	FOREIGN KEY (Ctr_loc) REFERENCES centers (Location)
 		ON DELETE CASCADE	ON UPDATE CASCADE,
-	FOREIGN KEY (Dname) REFERENCES DRUG (Dname)
+	FOREIGN KEY (Dname) REFERENCES drugs (Dname)
 		ON DELETE CASCADE	ON UPDATE CASCADE)
 DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE ALT_NAME (
+CREATE TABLE alt_names (
 	Dname		VARCHAR(50)		NOT NULL,
 	Other_name	VARCHAR(50)		NOT NULl,
 	PRIMARY KEY(Dname, Other_name),
-	FOREIGN KEY (Dname) REFERENCES DRUG (Dname)
+	FOREIGN KEY (Dname) REFERENCES drugs (Dname)
 		ON DELETE CASCADE	ON UPDATE CASCADE)
 DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE UPDATES (
+CREATE TABLE updates (
 	Ctr_loc			VARCHAR(50)		NOT NULL,
 	U_date			TIMESTAMP		NOT NULL,
 	Spreadsheet		VARCHAR(20)		NOT NULL,
 	PRIMARY KEY(Ctr_loc, U_date, Spreadsheet),
-	FOREIGN KEY (Ctr_loc) REFERENCES CENTER (Location)
+	FOREIGN KEY (Ctr_loc) REFERENCES centers (Location)
 		ON DELETE CASCADE	ON UPDATE CASCADE)
 DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE TYPOS (
+CREATE TABLE typos (
 	Wrong_name		VARCHAR(60)		NOT NULL,
 	Ctr_loc			VARCHAR(50)		NOT NULL,
 	Change			INT,
 	PRIMARY KEY(Ctr_loc, Wrong_name),
-	FOREIGN KEY (Ctr_loc) REFERENCES CENTER (Location)
+	FOREIGN KEY (Ctr_loc) REFERENCES centers (Location)
 		ON DELETE CASCADE	ON UPDATE CASCADE)
 DEFAULT CHARACTER SET utf8;
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Chateal';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Cyclen';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Cyclessa';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Desogen';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Microgestin';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Micronor';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Ortho Evra Patch';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Tricyclen';
 
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Chateal',
 	Other_name = 'Totals For CHATEAL (17)';
 
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Cyclen',
 	Other_name = 'Totals For CYCLEN (8)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Cyclessa',
 	Other_name = 'Totals For CYCLESSA (9)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Desogen',
 	Other_name = 'Totals For DESOGEN (20)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Microgestin',
 	Other_name = 'Totals For MICROGESTIN 1.5/30 (17)';
 		
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Microgestin',
 	Other_name = 'Totals For MICROGESTIN 1/20 (27)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Micronor',
 	Other_name = 'Totals For MICRONOR (18)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Ortho Evra Patch',
 	Other_name = 'Totals For ORTHO EVRA PATCH (8)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Tricyclen',
 	Other_name = 'Totals For TRICYCLEN (13)';
 	
-INSERT INTO ALT_NAME SET
+INSERT INTO alt_names SET
 	Dname = 'Tricyclen',
 	Other_name = 'Totals For TRICYCLEN LO (20)';
 
-INSERT INTO CENTER SET
+INSERT INTO centers SET
 	Location = 'Sarasota';
 
-INSERT INTO DRUG SET 
+INSERT INTO drugs SET 
 	Dname = 'Asprin';
 
-INSERT INTO DRUG_PER_LOC SET
+INSERT INTO drugs_per_locs SET
 	Ctr_loc = 'Sarasota',
 	Dname = 'Asprin';
 
-INSERT INTO DATE_COUNT SET
+INSERT INTO date_counts SET
 	Ctr_loc = 'Sarasota',
 	Dname = 'Asprin',
 	Time_stamp = '2014-02-25 03:14:07',
 	Count = 1;
 	
-INSERT INTO DATE_COUNT SET
+INSERT INTO date_counts SET
 	Ctr_loc = 'Sarasota',
 	Dname = 'Asprin',
 	Time_stamp = '2014-01-25 03:14:07',
 	Count = 2;
 
-INSERT INTO DATE_COUNT SET
+INSERT INTO date_counts SET
 	Ctr_loc = 'Sarasota',
 	Dname = 'Asprin',
 	Time_stamp = '2013-12-25 03:14:07',
