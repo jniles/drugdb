@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby -I ../lib -I lib
 require 'sinatra'
 require 'active_record'
+require 'sinatra/content_for'
+require 'chartkick'
 
 ActiveRecord::Base.establish_connection(
-  :adapter => 'mysql2',
+  :adapter => 'sqlite3',
   :database =>  'drugdb',
-  :host     => 'localhost',
-  :username => 'root',
-  :password => 'ifeveryporkchopwereperfect'
+  :username => 'root'
 )
 
 # Loading our models
@@ -19,21 +19,10 @@ end
 # Loading our router
 require './router'
 
+# Loading View Helpers
+require './view_helpers'
+include ViewHelpers
+
 
 # Everything past the word layout is in fact the layout.
 #  The view gets rendered in the call to yield
-__END__
-@@layout
-
-<html>
-  <title>
-    <%= @title %>
-  </title>
-  <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="layout.css">
-  <%= yield %>
-</html>
-
-
-
-

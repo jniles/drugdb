@@ -1,0 +1,25 @@
+require './view_helpers'
+
+get '/drug' do
+  path = 'drug'
+  resource = Module.const_get( path.split('_').map(&:capitalize).join ) rescue false
+  if resource
+    @title = resource.name
+    @columns = resource.column_names
+    @resources = resource.all
+    erb :index
+  else
+    return "Sorry can't find that model"
+  end
+end
+
+get '/*/*/line_chart' do |location, drug_name|
+  location.capitalize!
+  drug_name.capitalize!
+  data_points = DataPoint.where(
+    ctr_loc: location,
+    dname: drug_name
+  ).all
+  data = data_points.map {|datum| [datum['Time_stamp'], datum['Count'].to_i] }
+  erb :line_graph, locals: {data: data}
+end

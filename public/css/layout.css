@@ -1,0 +1,269 @@
+/************************** GENERAL ****************************/
+@font-face {
+    font-family: Source Sans;
+    src: url('SourceSansPro-Regular.otf');
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #8a8b8b;
+    font-family: "Century Gothic", "Tw Cen MT", Futura, "URW Gothic L", Arial, sans-serif;
+    font-weight: normal;
+}
+
+body {
+    border-top: 8px solid #3366d9;
+    color: #403d3d;
+    font-family: Corbel, "Lucida Sans Unicode", "Lucida Grade", "Bitstream Vera Sans", "Luxi Serif", Verdana, sans-serif;
+}
+
+table {
+    font-family: Source Sans;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.footer a {
+    float: right;
+    padding-top: 15px;
+    padding-right: 1px;
+    color: #01aef0;
+    text-decoration: none;
+}
+
+/************************** LOGO ****************************/
+
+.logo {
+    float: left;
+    max-width: 50%;
+}
+
+.logo img {
+    height: 60px;
+    width: 50px;
+    float: left;
+    padding-right: 5px;
+    margin-top: 15px;
+}
+
+.logo h3 {
+    border-left: 2px solid #a1a1a1;
+    display: inline-block;
+    color: #a1a1a1;
+    font-size: 1.75em;
+    margin-left: 5px;
+    padding-left: 10px;
+    position: relative;
+    top: -.1em;
+}
+
+/************************** MAIN MENU ****************************/
+
+.main-menu {
+    float: right;
+    text-align: right;
+    margin: -15px 0px -2px 0px;
+    background-color: #3366d9;
+    padding-right: 20px;
+    padding-left: 0px;
+}
+
+.main-menu ul {
+    list-style-type: none;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+.main-menu li {
+    display: inline-block;
+    padding-top: 2px;
+}
+
+.main-menu li a {
+    color:white;
+    text-decoration: none;
+}
+
+/************************** NAVIGATION ****************************/
+
+nav {
+    clear: both;
+    width: 960px;
+    height: 20px;
+}
+
+.search {
+    color: #a1a1a1;
+    float: right;
+    margin: 2px 2px 0 0;
+}
+
+.search input {
+    border: 1px solid #a1a1a1;
+    background-color: #eee;
+    border-radius: 30px;
+    padding: 0px 5px 0px 8px;
+}
+
+.search i {
+    color: #a1a1a1;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+/************************** TABLES ****************************/
+
+table {
+    width: 960px;
+    border: black 1px solid;
+    padding-top: 10px;
+}
+
+table tr th, td {
+    text-align: center;
+    border: #ebebeb 1px solid;
+}
+
+table th {
+    box-shadow: 0px 2px 1px #d1d1d1;
+    font-weight: bold;
+    color: #bbbbbb;
+    line-height: 300%;
+}
+
+.alert-header{
+    font-size: 2em;
+    font-family: "Century Gothic", "Tw Cen MT", Futura, "URW Gothic L", Arial, sans-serif;
+    color: #ff881f;
+    font-weight: bold;
+    line-height: 200%;
+}
+
+.index-header{
+    font-size: 2em;
+    font-family: "Century Gothic", "Tw Cen MT", Futura, "URW Gothic L", Arial, sans-serif;
+    color: #01aef0;
+    font-weight: bold;
+    line-height: 200%;
+}
+
+.status {
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+/************************** ICONS ****************************/
+
+.status-low {
+    background-color: #f94552;
+    height: .9em;
+    width: .9em;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.status-error {
+    background-color: #f99c53;
+    height: .9em;
+    width: .9em;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.status-normal {
+    background-color: #19bb43;
+    height: .9em;
+    width: .9em;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.button-more-info {
+    background-color:#3366d9;
+    -webkit-border-top-left-radius:17px;
+    -moz-border-radius-topleft:17px;
+    border-top-left-radius:17px;
+    -webkit-border-top-right-radius:17px;
+    -moz-border-radius-topright:17px;
+    border-top-right-radius:17px;
+    -webkit-border-bottom-right-radius:17px;
+    -moz-border-radius-bottomright:17px;
+    border-bottom-right-radius:17px;
+    -webkit-border-bottom-left-radius:17px;
+    -moz-border-radius-bottomleft:17px;
+    border-bottom-left-radius:17px;
+    text-indent:0;
+    border:1px solid #1f67b1;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:.9em;
+    font-weight:bold;
+    font-style:normal;
+    width:3em;
+    text-decoration:none;
+    text-align:center;
+    margin-top: 5px;
+    margin-bottom: 3px;
+}
+
+/************************** MAILING LIST ****************************/
+
+.mailing-list ul {
+    list-style-type: none;
+    padding-left: 2px;
+}
+
+.mailing-list ul li {
+    padding: 2px 0px 2px 0px;
+}
+
+.button-add-email {
+    background-color:#3366d9;
+    -webkit-border-top-left-radius:5px;
+    -moz-border-radius-topleft:5px;
+    border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-radius-topright:5px;
+    border-top-right-radius:5px;
+    -webkit-border-bottom-right-radius:5px;
+    -moz-border-radius-bottomright:5px;
+    border-bottom-right-radius:5px;
+    -webkit-border-bottom-left-radius:5px;
+    -moz-border-radius-bottomleft:5px;
+    border-bottom-left-radius:5px;
+    text-indent:0;
+    border:1px solid #3366d9;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:.9em;
+    font-weight:bold;
+    font-style:normal;
+    width:3em;
+    text-decoration:none;
+    text-align:center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.email-header{
+    font-size: 1.5em;
+    font-family: "Century Gothic", "Tw Cen MT", Futura, "URW Gothic L", Arial, sans-serif;
+    color: #01aef0;
+    font-weight: normal;
+    line-height: 100%;
+    margin-bottom: -10px;
+    margin-top: 12px;
+}
+
+/*.column-left {
+	float:left;
+}
+
+.column-right {
+	float:left;
+ */

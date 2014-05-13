@@ -1,6 +1,7 @@
-class LocalStock < ActiveRecord::Base
+class DrugsPerLoc < ActiveRecord::Base
   self.primary_key = 'Ctr_loc'
 
+  scope :alerts, conditions: {Flag: true}
 
   #CREATE TABLE  DRUG_PER_LOC (
   #      Ctr_loc         VARCHAR(50)             NOT NULL,
@@ -13,5 +14,20 @@ class LocalStock < ActiveRecord::Base
   #      FOREIGN KEY (Dname) REFERENCES DRUG (Dname)
   #              ON DELETE CASCADE       ON UPDATE CASCADE)
   #  DEFAULT CHARACTER SET utf8;
+
+  # has yet to be implemented
+  def status
+    self.Flag ? 'Good' : 'Low'
+  end
+
+  # has yet to be implemented
+  def count
+    40
+  end
+
+  # has yet to be implemented, will it ever be?
+  def expiration_date
+    Date.tomorrow
+  end
 
 end

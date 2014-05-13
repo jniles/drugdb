@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 gem 'sinatra'
 gem 'activerecord'
-gem 'mysql2'
+gem 'sqlite3'
+gem 'chartkick'
