@@ -1,4 +1,4 @@
-DROP DATABASE drugdb;
+DROP DATABASE IF EXISTS drugdb;
 CREATE DATABASE drugdb;
 USE drugdb;
 
