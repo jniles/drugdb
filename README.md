@@ -1,3 +1,6 @@
+Planned-Parenthood-Drug-Inventory
+==================================
+
 Drug Inventory for Planned Parenthood
 
 Running Sinatra + ActiveRecord on MySql and WEBrick
@@ -38,6 +41,3 @@ Pages:
 -admin index - editable inventory list
 
 -admin config- config for user
-
-
-
