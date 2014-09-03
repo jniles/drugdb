@@ -1,3 +1,6 @@
 # ommit vim files
 *.swp
 *.swo
+
+# ommit temp files (notepad)
+*~
