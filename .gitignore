@@ -4,3 +4,6 @@
 
 # ommit temp files (notepad)
 *~
+
+# untrack all .idea files
+.idea/
