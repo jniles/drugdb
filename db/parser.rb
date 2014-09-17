@@ -29,7 +29,7 @@ class Parser
 		sheet = spreadsheet.worksheet 0
 		sheet.each 1 do |row| # omit header row, start at second row
       if row.all? { | entry | defined? (entry).nil? } # validation
-        @db.execute('INSERT INTO purchase VALUES (?, ?, ?, ?, ?);', row)
+        @db.execute('INSERT INTO purchase VALUES (NULL, ?, ?, ?, ?, ?);', row)
       else 
         puts "[WARNING] Could not process row." 
       end
