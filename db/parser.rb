@@ -6,9 +6,19 @@
 #   Health Center     Drug Name     CPT Code    Count     Date
 #
 #   Writes the data into an SQLite database contained in the file 'drug.db'
+#
+#
+#   For CSV parsing, see: http://technicalpickles.com/posts/parsing-csv-with-ruby/
 
 require 'sqlite3'
 require 'spreadsheet'
+require 'active_record'
+
+ActiveRecord::Base.logger = Logger.new(File.open('db.log', 'w'))
+ActiveRecord::Base.establish_connection(
+  :adapter => 'sqlite3',
+  :database => 'drug.db'
+)
 
 class Parser 
 	def initialize(dbpath)
