@@ -57,7 +57,7 @@ The server is contained in the `main.rb` file.  Execute it with ruby.
 
 ```bash
 # run the server
-$ ruby main.rb
+$ rackup -p 1234 server.rb
 ```
 
 There terminal should output a few lines then wait.  Navigate to `localhost:4567` in your

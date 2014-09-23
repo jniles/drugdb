@@ -10,7 +10,6 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 if User.count == 0
-  @user = User.create(name: 'jniles')
-  @password = 'secret'
+  @user = User.create({:name => 'jniles', :password => 'secret'})
   @user.save
 end

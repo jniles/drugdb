@@ -7,7 +7,7 @@ class User
   before :save, :generate_token
   before :create, :generate_token
 
-  property :id            ,Serial
+  property :id            ,Serial         
   property :name          ,String         ,length: 0..75
   property :email         ,String         ,length: 0..75
   property :password      ,BCryptHash
@@ -22,6 +22,7 @@ class User
   end
 
   def authenticate(pass)
+    puts "My password: #{self.password}"
     self.password == pass
   end
 end
