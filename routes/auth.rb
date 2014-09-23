@@ -2,7 +2,7 @@
 class Auth < Sinatra::Base
 
   # Login form submits here.
-  post '/login' do
+  post '/auth/login' do
     env['warden'].authenticate!
     if session[:return_to].nil?
       redirect '/'
@@ -19,7 +19,7 @@ class Auth < Sinatra::Base
      redirect '/login.html'
    end
 
-  get '/logout' do 
+  get '/auth/logout' do 
     env['warden'].raw_session.inspect
     env['warden'].logout
     redirect '/'
