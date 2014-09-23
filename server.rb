@@ -59,11 +59,13 @@ module SST
     use Auth
 
     get '/' do
+      env['warden'].authenticate!
       "Hello world"
     end
 
-    post '/' do
-      "this is a post"
+    get '/protected' do
+      env['warden'].authenticate!
+      "Hey, you are logged in!"
     end
   end
 end
