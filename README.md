@@ -13,7 +13,7 @@ bundle install
 mysql <ddrugdb.sql
 ```
 
-Then just `ruby main.rb` and sinatra will take the stage
+Then just `ruby server.rb` and sinatra will take the stage
 
 
 
