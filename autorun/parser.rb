@@ -47,4 +47,3 @@ end
 book = Spreadsheet.open './purchase.xls'
 parser = Parser.new("./drug.db")
 parser.extract("Sarasota HC", book)
-
