@@ -1,6 +1,9 @@
-class Drug < ActiveRecord::Base
+class Drug
+  include DataMapper::Resource
 
-  #CREATE TABLE DRUGS (
-  #   Dname           VARCHAR(50)             NOT NULL PRIMARY KEY)
-  #DEFAULT CHARACTER SET utf8;
+  property :cpt_code        ,String         ,length: 0..75
+  property :name            ,String         ,length: 0..75
+  property :bar_code        ,Integer
+  property :vendor          ,String         ,length: 0..75
+  property :class           ,Integer        ,:required => True
 end

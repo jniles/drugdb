@@ -1,11 +1,9 @@
-class Manager < ActiveRecord::Base
+# Manager Data Model
 
-  #CREATE TABLE MANAGER (
-  #        Mid             VARCHAR(15)             NOT NULL PRIMARY KEY,
-  #        Email           VARCHAR(50),
-  #        Ctr_loc         CHAR(32)                NOT NULL,
-  #        FOREIGN KEY (Ctr_loc) REFERENCES DIST_CTR (Location)
-  #                ON DELETE CASCADE       ON UPDATE CASCADE)
-  #DEFAULT CHARACTER SET utf8;
+class Manager
+  include DataMapper::Resource
 
+  property :id          ,Serial
+  property :name        ,String       ,length: 0..75
+  property :email       ,String       ,length: 0..75
 end

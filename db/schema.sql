@@ -8,7 +8,8 @@
 CREATE TABLE drug (
   cpt_code      INTEGER PRIMARY KEY,
   name          TEXT NOT NULL,
-  bar_code      INTEGER NOT NULL
+  bar_code      INTEGER NOT NULL,
+  vendor        TEXT NOT NUll
 );
 
 CREATE TABLE manager (
