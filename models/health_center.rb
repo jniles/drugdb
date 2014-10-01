@@ -3,5 +3,5 @@ class HealthCenter
 
   property :id          ,Serial
   property :name        ,String         ,length: 0..75
-  property :manager_id  ,Serial
+  property :manager_id  ,Integer
 end

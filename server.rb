@@ -8,7 +8,6 @@ require 'warden'
 require_relative 'models/init.rb'
 
 # routes 
-require_relative 'routes/test.rb'
 require_relative 'routes/auth.rb'
 
 module SST

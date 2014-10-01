@@ -22,7 +22,6 @@ class User
   end
 
   def authenticate(pass)
-    puts "My password: #{self.password}"
     self.password == pass
   end
 end
