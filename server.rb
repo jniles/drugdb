@@ -41,16 +41,15 @@ module SST
       # authenticating a user
       def authenticate!
         # find for user
-        puts "...params is: #{params} ..."
         user = User.first(name: params['username'])
         if user.nil?
-            puts "... No user!"
+            puts "[AUTH] No user!"
             fail!("Invalid credentials: user does not exist.")
         elsif user.authenticate(params['password'])
-          puts "... login success!"
+          puts "[AUTH] Login success!"
           success!(user)
         else
-          puts "... ERROR!"
+          puts "[AUTH] Login error!"
           fail!("An error occurred.  Please try again.")
         end
       end
