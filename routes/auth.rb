@@ -24,4 +24,8 @@ class Auth < Sinatra::Base
     env['warden'].logout
     redirect '/'
   end
+
+  get '/auth/reset' do
+    "Want to reset your password?"
+  end
 end

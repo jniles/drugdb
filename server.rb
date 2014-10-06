@@ -5,6 +5,7 @@ require 'active_record'
 require 'chartkick'
 require 'warden'
 
+# init models
 require_relative 'models/init.rb'
 
 # routes 

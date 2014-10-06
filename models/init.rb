@@ -13,6 +13,7 @@ require_relative "user"
 require_relative "manager"
 require_relative "health_center"
 require_relative "drug"
+require_relative "cpt"
 require_relative "correction"
 require_relative "count"
 require_relative "purchase"
@@ -34,17 +35,6 @@ if User.count == 0
   end
 end
 
-if HealthCenter.count == 0
-  puts "[INIT::HEALTHCENTER] Loading data from #{dataPath}"
-  sheet = "health_center"
-  xls = "health_center.xls"
-  parser = Parser.new(dataPath + xls, sheet)
-  parser.read().each do |row|
-    puts "[PARSER::READ] Read: #{row}"
-    HealthCenter.create(:id => row[0], :name => row[1], :manager_id => row[2])
-  end
-end
-
 if Manager.count == 0
   puts "[INIT::MANAGER] Loading data from #{dataPath}"
   sheet = "manager"
@@ -56,6 +46,18 @@ if Manager.count == 0
   end
 end
 
+if HealthCenter.count == 0
+  puts "[INIT::HEALTHCENTER] Loading data from #{dataPath}"
+  sheet = "health_center"
+  xls = "health_center.xls"
+  parser = Parser.new(dataPath + xls, sheet)
+  parser.read().each do |row|
+    puts "[PARSER::READ] Read: #{row}"
+    manager = Manager.get(row[3])
+    HealthCenter.create(:id => row[0], :name => row[1], :manager => manager)
+  end
+end
+
 if Drug.count == 0
   puts "[INIT::DRUG] Loading data from #{dataPath}"
   sheet = "drug"
@@ -63,10 +65,7 @@ if Drug.count == 0
   parser = Parser.new(dataPath + xls, sheet)
   parser.read().each do |row|
     puts "[PARSER::READ] Read: #{row}"
-    if !row[2].nil?
-      Drug.create(:cpt => row[0], :name => row[1], :vendor => row[2])
-    else 
-      Drug.create(:cpt => row[0], :name => row[1])
-    end
+    drug = Drug.create(:name => row[1])
+    Cpt.create(:code => row[2], :drug => drug)
   end
 end

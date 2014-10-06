@@ -3,5 +3,11 @@ class HealthCenter
 
   property :id          ,Serial
   property :name        ,String         ,length: 0..75
-  property :manager_id  ,Integer
+
+  belongs_to :manager
+
+  has n, :sales
+  has n, :purchases
+  has n, :corrections
+  has n, :counts
 end
