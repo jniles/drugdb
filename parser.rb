@@ -13,19 +13,21 @@
 require 'spreadsheet'
 
 class Parser 
-	def initialize(xls, sheet, columns)
-		@sheet = xls.worksheet sheet
-    @columns = columns
+	def initialize(xls, sheet)
+    book = Spreadsheet.open xls
+		@sheet = book.worksheet sheet
 	end
 	
 	def read()
+    rows = []
 		@sheet.each 1 do |row| # omit header row, start at second row
       if row.all? { | entry | defined? (entry).nil? } # validation
-        puts "[PARSER::ROW] #{entry}"
+        rows << row
       else 
-        puts "[PARSER::WARNING] Could not process row." 
+        puts "[PARSER::WARNING] Omitting row: #{row}" 
       end
 		end
+    return rows
 	end
 end
 
