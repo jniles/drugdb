@@ -1,4 +1,3 @@
-
 class Auth < Sinatra::Base
 
   # Login form submits here.
@@ -26,6 +25,10 @@ class Auth < Sinatra::Base
   end
 
   get '/auth/reset' do
-    "Want to reset your password?"
+    send_file File.join('public', 'reset.html')
+  end
+  
+  post '/auth/reset' do
+    "Sent an email to #{params[:email]}..."
   end
 end

@@ -34,7 +34,6 @@ module SST
     Warden::Strategies.add(:password) do
       # valid params for authentication
       def valid?
-        puts "Testing ... #{params}"
         params['username'] && params['password']
       end
 
