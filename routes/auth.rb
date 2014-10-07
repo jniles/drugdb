@@ -1,3 +1,5 @@
+require 'pony'
+
 class Auth < Sinatra::Base
 
   # Login form submits here.
@@ -30,5 +32,16 @@ class Auth < Sinatra::Base
   
   post '/auth/reset' do
     "Sent an email to #{params[:email]}..."
+    Pony.mail({
+	    :to => #{params[:email]},
+	    :subject => "Your password for the Planned Parenthood Drug Database has been reset",
+	    :body => "Your password has been reset. Please click the link below to access your account and change your password.",
+	    :via => :smtp,
+	    :via_options => {
+		    :address => "127.0.0.1",
+		    :port => "8000",
+		    :domain => "localhost.localdomain"
+	   }
+	  })
   end
 end
