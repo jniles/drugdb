@@ -32,10 +32,12 @@ class Auth < Sinatra::Base
   
   post '/auth/reset' do
     "Sent an email to #{params[:email]}..."
+    arf =(0...12).map { (65 + rand(56)).chr }.join
+   #gets 12 pseudorandom characters in the ASCII A-Z + symbols + a-z range 
     Pony.mail({
 	    :to => #{params[:email]},
 	    :subject => "Your password for the Planned Parenthood Drug Database has been reset",
-	    :body => "Your password has been reset. Please click the link below to access your account and change your password.",
+	    :body => "Your password has been reset to " + arf + ". Please click the link below to access your account and change your password.",
 	    :via => :smtp,
 	    :via_options => {
 		    :address => "127.0.0.1",
