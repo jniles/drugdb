@@ -1,8 +1,11 @@
-# ommit vim files
+# omit vim files
 *.swp
 *.swo
 
-# ommit temp files (notepad)
+# omit sqlite3 database
+db/drug.db
+
+# omit temp files (notepad)
 *~
 
 # untrack all .idea files
