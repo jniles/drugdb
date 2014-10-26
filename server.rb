@@ -10,6 +10,7 @@ require_relative 'models/init.rb'
 
 # routes 
 require_relative 'routes/auth.rb'
+require_relative 'routes/actions.rb'
 
 module SST
   class App < Sinatra::Base
@@ -54,7 +55,9 @@ module SST
       end
     end
 
+    # middleware
     use Auth
+    use Actions
 
     get '/' do
       env['warden'].authenticate!

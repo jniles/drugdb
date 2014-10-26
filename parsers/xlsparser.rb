@@ -12,15 +12,15 @@
 
 require 'spreadsheet'
 
-class Parser 
+class XLSParser 
 	def initialize(xls, sheet)
-    book = Spreadsheet.open xls
-		@sheet = book.worksheet sheet
+    @book = Spreadsheet.open xls
+		@sheet = @book.worksheet sheet
 	end
 	
 	def read()
     rows = []
-		@sheet.each 1 do |row| # omit header row, start at second row
+		@sheet.each 3 do |row| # omit header rows, start at fourth row
       if row.all? { | entry | defined? (entry).nil? } # validation
         rows << row
       else 
@@ -29,5 +29,9 @@ class Parser
 		end
     return rows
 	end
+
+  def page(sheet)
+    @sheet = @book.worksheet sheet
+  end
 end
 

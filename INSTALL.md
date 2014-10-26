@@ -14,7 +14,7 @@ On a debian-based linux distribution, the follows commands should work to get
 you up and running:
 ```bash
 
-# Note: Requires root privilages
+$ # Note: Requires root privilages
 $ apt-get install ruby mysql sqlite3 libsqlite3-dev bundler
 ```
 
@@ -24,7 +24,7 @@ git or download it as a zip file.  The example belows uses git.
 
 ```bash
 
-# Fetch the source code
+$ # Fetch the source code
 $ git clone https://github.com/jniles/drug_inventory
 Cloning into drug_inventory...
 ```
@@ -56,7 +56,7 @@ where `[username]` is replaced by your MySQL user and `[password]` by the associ
 The server is contained in the `main.rb` file.  Execute it with ruby.
 
 ```bash
-# run the server
+$ # run the server
 $ rackup -p 1234 server.rb
 ```
 
