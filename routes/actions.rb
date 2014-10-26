@@ -27,9 +27,15 @@ class Actions < Sinatra::Base
             #puts "CPT is nil for row #{row}"
           end
           Purchase.create({:cpt => cpt, :count => row[3], :date => row[4], :health_center => center})
+          # TODO : this should report the number of successful entries to the client, the number of rows found total,
+          # and maybe the time it took?
         end
       end
     end
+  end
+
+  def computeStatistics(array)
+
   end
 
   def parsePurchase(path, centers)

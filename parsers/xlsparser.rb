@@ -1,6 +1,6 @@
 # DrugDB Parser
-#   A proof of concept parser to pull in purchasing data from an Excel
-#   file received from health centers.
+#   A parser to pull in any data from Excel files
+#   received from health centers.
 #
 #   Expects the purchasing file to be of the format:
 #   Health Center     Drug Name     CPT Code    Count     Date
@@ -13,8 +13,8 @@
 require 'spreadsheet'
 
 class XLSParser 
-	def initialize(xls, sheet)
-    @book = Spreadsheet.open xls
+	def initialize(xlspath, sheet)
+    @book = Spreadsheet.open xlspath
 		@sheet = @book.worksheet sheet
 	end
 	
