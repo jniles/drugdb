@@ -16,8 +16,52 @@ class Actions < Sinatra::Base
   # Create new purchase rows for each record
   # found in the sheet.
   def parseInventory(path, centers)
+    initialCount = Count.count
     sheet = "Inventory Counts.xls"
-    puts "Does #{path}#{sheet} exist? #{exists(path+sheet)}"
+    if exists(path+sheet)
+      centers.each do |center|
+        parser = XLSParser.new(path+sheet, center.name)
+        parser.read().each do |row|
+          cpt = Drug.get(row[2]) # get the drug from the cpt code
+          if cpt.nil?
+            puts "CPT is nil for row #{row}"
+          end
+          Count.create({:cpt => cpt, :count => row[3], :date => row[4], :health_center => center})
+          # TODO : this should report the number of successful entries to the client, the number of rows found total,
+          # and maybe the time it took?
+        end
+      end
+    end
+    return Count.count - initialCount
+  end
+
+  # Parse the worksheet "Inventory Counts.xls"
+  # Create new purchase rows for each record
+  # found in the sheet.
+  def parsePurchase(path, centers)
+    initialCount = Purchase.count
+    sheet = "Purchase Log.xls"
+    if exists(path+sheet)
+      centers.each do |center|
+        parser = XLSParser.new(path+sheet, center.name)
+        parser.read().each do |row|
+          cpt = Drug.get(row[2]) # get the drug from the cpt code
+          if cpt.nil?
+            #puts "CPT is nil for this cpt #{row[2]}"
+          end
+          Purchase.create({:cpt => cpt, :count => row[3], :date => row[4], :health_center => center})
+          # TODO : this should report the number of successful entries to the client, the number of rows found total,
+          # and maybe the time it took?
+        end
+      end
+    end
+    return Count.count - initialCount
+  end
+
+  def parseSales(path, centers)
+    initialCount = Sale.count
+    puts "Initial Count: #{initialCount}"
+    sheet = "Sales.xls"
     if exists(path+sheet)
       centers.each do |center|
         parser = XLSParser.new(path+sheet, center.name)
@@ -26,24 +70,14 @@ class Actions < Sinatra::Base
           if cpt.nil?
             #puts "CPT is nil for row #{row}"
           end
-          Purchase.create({:cpt => cpt, :count => row[3], :date => row[4], :health_center => center})
+          Sale.create({:cpt => cpt, :count => row[3], :date => row[4], :health_center => center})
           # TODO : this should report the number of successful entries to the client, the number of rows found total,
           # and maybe the time it took?
         end
       end
     end
-  end
-
-  def computeStatistics(array)
-
-  end
-
-  def parsePurchase(path, centers)
-    #sheet = "Purchase Log.xls"
-  end
-
-  def parseSales(path, centers)
-    #sheet = "Sales.xls"
+    puts "Final Count: #{Sale.count}"
+    return Sale.count - initialCount
   end
 
   # Parse up to a particular timestamp
@@ -54,8 +88,6 @@ class Actions < Sinatra::Base
     # this path gets hit, in case things have
     # changed since last time.
     dirs = Dir.glob("#{shareDir}[0-9]*")
-
-    puts "dirs is #{dirs}"
 
     # Parse only the latest file if keyword
     # latest is triggered
@@ -79,9 +111,16 @@ class Actions < Sinatra::Base
     # Get all health centers, to select which sheet name
     # to use.
     centers = HealthCenter.all
+    puts "Centers is: #{centers}"
 
-    # parse the inventory
-    parseInventory(folder, centers)
+    # Parse data
+    inventoryCount = parseInventory(folder, centers)
+    purchaseCount = parsePurchase(folder, centers)
+    saleCount = parseSales(folder, centers)
+
+    puts "Counts: inventory #{inventoryCount}, purchase #{purchaseCount}, sale #{saleCount}"
+
+    #:erb :parse 
   end
 
 end

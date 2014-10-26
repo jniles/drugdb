@@ -20,11 +20,18 @@ class XLSParser
 	
 	def read()
     rows = []
+    breaks = 0
+    maxBreaks = 4
 		@sheet.each 3 do |row| # omit header rows, start at fourth row
-      if row.all? { | entry | defined? (entry).nil? } # validation
+      if row.any?
         rows << row
       else 
-        puts "[PARSER::WARNING] Omitting row: #{row}" 
+        puts "[PARSER::WARNING] Omitting empty row." 
+        breaks += 1
+      end
+
+      if maxBreaks < breaks # HACK HACK HACK
+        break
       end
 		end
     return rows
