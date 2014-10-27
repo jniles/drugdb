@@ -1,7 +1,6 @@
 class Cpt
   include DataMapper::Resource
 
-  property :id              ,Serial
   property :code            ,String         ,:key => true
 
   belongs_to :drug

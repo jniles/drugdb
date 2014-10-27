@@ -1,4 +1,5 @@
-require_relative '../parsers/xlsparser.rb'
+require_relative '../parsers/xlsxparser.rb'
+require 'date'
 
 class Actions < Sinatra::Base
 
@@ -12,35 +13,35 @@ class Actions < Sinatra::Base
     return File.exists?(path)
   end
 
-  # Parse the worksheet "Inventory Counts.xls"
+  # Parse the worksheet "Inventory Counts.xlsx"
   # Create new purchase rows for each record
   # found in the sheet.
   def parseInventory(path, centers)
     initialCount = Count.count
-    sheet = "Inventory Counts.xls"
+    sheet = "Inventory Counts.xlsx"
     if exists(path+sheet)
       centers.each do |center|
-        parser = XLSParser.new(path+sheet, center.name)
+        parser = XLSXParser.new(path+sheet, center.name)
         parser.read().each do |row|
-          cpt = Drug.get(row[2]) # get the drug from the cpt code
-          if cpt.nil?
-            puts "CPT is nil for row #{row}"
+          if not row.empty?
+            cpt = Cpt.get(row[2]) # get the drug from the cpt code
+            if not cpt.nil?
+              date = Date.parse(row[4].to_s)
+              Count.create({:cpt => cpt, :count => row[3], :date => date, :health_center => center})
+            end
           end
-          Count.create({:cpt => cpt, :count => row[3], :date => row[4], :health_center => center})
-          # TODO : this should report the number of successful entries to the client, the number of rows found total,
-          # and maybe the time it took?
         end
       end
     end
     return Count.count - initialCount
   end
 
-  # Parse the worksheet "Inventory Counts.xls"
+  # Parse the worksheet "Inventory Counts.xlsx"
   # Create new purchase rows for each record
   # found in the sheet.
   def parsePurchase(path, centers)
     initialCount = Purchase.count
-    sheet = "Purchase Log.xls"
+    sheet = "Purchase Log.xlsx"
     if exists(path+sheet)
       centers.each do |center|
         parser = XLSParser.new(path+sheet, center.name)
@@ -61,7 +62,7 @@ class Actions < Sinatra::Base
   def parseSales(path, centers)
     initialCount = Sale.count
     puts "Initial Count: #{initialCount}"
-    sheet = "Sales.xls"
+    sheet = "Sales.xlsx"
     if exists(path+sheet)
       centers.each do |center|
         parser = XLSParser.new(path+sheet, center.name)
@@ -115,10 +116,11 @@ class Actions < Sinatra::Base
 
     # Parse data
     inventoryCount = parseInventory(folder, centers)
-    purchaseCount = parsePurchase(folder, centers)
-    saleCount = parseSales(folder, centers)
+    #purchaseCount = parsePurchase(folder, centers)
+    #saleCount = parseSales(folder, centers)
 
-    puts "Counts: inventory #{inventoryCount}, purchase #{purchaseCount}, sale #{saleCount}"
+    puts "Counts: inventory #{inventoryCount}"
+    #puts "Counts: inventory #{inventoryCount}, purchase #{purchaseCount}, sale #{saleCount}"
 
     #:erb :parse 
   end

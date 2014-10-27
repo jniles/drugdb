@@ -74,13 +74,22 @@ GEM
     i18n (0.6.1)
     json (1.8.1)
     json_pure (1.8.1)
+    mini_portile (0.6.0)
     multi_json (1.5.0)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
     rack (1.5.1)
     rack-protection (1.5.3)
+      rack
+    rack-ssl (1.4.1)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
     ruby-ole (1.2.11.7)
+    rubyXL (3.2.4)
+      nokogiri (>= 1.4.4)
+      rubyzip (>= 1.1.6)
+    rubyzip (1.1.6)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -117,6 +126,8 @@ DEPENDENCIES
   chartkick
   data_mapper
   dm-sqlite-adapter
+  rack-ssl
+  rubyXL
   sinatra
   sinatra-contrib
   sinatra-flash

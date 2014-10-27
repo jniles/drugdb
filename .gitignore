@@ -10,3 +10,4 @@ db/drug.db
 
 # untrack all .idea files
 .idea/
+*~lock

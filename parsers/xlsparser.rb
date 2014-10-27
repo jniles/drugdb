@@ -1,14 +1,6 @@
-# DrugDB Parser
-#   A parser to pull in any data from Excel files
-#   received from health centers.
+# This parser is abandoned due to issues reading in formulas.
 #
-#   Expects the purchasing file to be of the format:
-#   Health Center     Drug Name     CPT Code    Count     Date
-#
-#   Writes the data into an SQLite database contained in the file 'drug.db'
-#
-#
-#   For CSV parsing, see: http://technicalpickles.com/posts/parsing-csv-with-ruby/
+
 
 require 'spreadsheet'
 
