@@ -10,7 +10,7 @@ require 'optparse'
 require 'optparse/time'
 require 'ostruct'
 
-require_relative './inventory.rb'
+require './parsers/inventory'
 
 VERSION = 0.1
 
@@ -21,24 +21,32 @@ class OptParse
   def self.parse(args)
     options = OpenStruct.new
     options.verbose = false
-    options.sheets = []
+    options.centers = []
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: main.rb [options] [filename]"
 
-      opts.on('-v', '--[no-]verbose', "Run verbosely") do |v|
+      opts.on('-v', '--[no-]verbose', "Run verbosely.") do |v|
         options.verbose = v
       end
 
-      opts.on("-s", "--sheet [SHEET]", "Process only the given sheet") do |s|
-        options.sheets << s
+      opts.on("-c", "--health-center [CENTER]", "Import only the given health center.") do |c|
+        options.centers << c
       end
 
-      opts.on("-a", "--all-sheets", "Process all sheets in the file") do |v|
-        options.all_sheets = v 
+      opts.on("-a", "--all-centers", "Import all health centers in the file.") do |v|
+        options.all_centers = v 
       end
 
-      opts.on_tail("--version", "Show version") do
+      opts.separator ""
+      opts.separator "Common options:"
+
+      opts.on_tail("-h", "--help", "Show this message.") do
+        puts opts
+        exit
+      end
+
+      opts.on_tail("--version", "Show version.") do
         puts VERSION
         exit
       end
@@ -50,5 +58,6 @@ class OptParse
 end
 
 options = OptParse.parse(ARGV)
+parser = InventoryCountsParser.new(ARGV[0], options)
+parser.parse()
 
-p options

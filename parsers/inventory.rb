@@ -10,6 +10,7 @@ require 'rubyXL'
 require './models/init'
 require './models/count'
 require './models/cpt'
+require './models/health_center'
 
 class InventoryCountsParser
 
@@ -18,31 +19,30 @@ class InventoryCountsParser
   def initialize(file, options)
     @options = options
     @workbook = RubyXL::Parser.parse(file)
-    stdout("Initialized new workbook from file: '#{file}'")
+    stdout("Initialized new workbook from: '#{file}'")
   end
 
   def parse()
-    if @options.all_sheets
-      stdout("Parsing all sheets")
-      @workbook.worksheets.each { |sheet| parseSheet(sheet) }
-      extractAllSheets
-    elsif @options.sheets
-      @options.sheets.each { |sheet| parseSheet(sheet) }
+    if @options.all_centers
+      stdout("Parsing all centers")
+      HealthCenter.all.each do |health_center|
+        parseSheet(health_center)
+      end
+    elsif @options.centers
+      @options.centers.each do |center|
+        health_center = HealthCenter.get(center)
+        parseSheet(health_center)
+      end
     else
       raise "No worksheets specified to parse!"
     end
   end
 
-  def parseSheet(sheet)
-    stdout("Parsing sheet #{sheet}")
-    sheet = @workbook.worksheets[sheet]
-    data = sheet.extract_data
+  def parseSheet(center)
+    stdout("Parsing center #{center.name}")
+    data = @workbook[center.name].extract_data
 
     counts = 0
-
-    # The health center is given in the sheet
-    # name.  We can get this first thing
-    health_center = Center.get(sheet)
 
     # Ignore the first three lines of header content
     content = data.drop(3)
@@ -54,16 +54,17 @@ class InventoryCountsParser
     content.each do |row|
       if not row.empty?
         drug_code = Cpt.get(row[2])
-        if not cpt.nil?
-          stdout("Warning: Drug CPT code is nil for row #{content.index(row)}")
+        if not drug_code.nil?
           date = Date.parse(row[4].to_s)
-          Count.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => health_center})
+          Count.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
           counts += 1
+        else
+          stdout("Warning: Drug CPT code is nil for row #{content.index(row)}")
         end
       end
     end
 
-    stdout("Finished parsing sheet #{sheet}")
+    stdout("Finished parsing health center #{center.name}")
     stdout("Wrote #{counts} lines to the database.")
   end
 
