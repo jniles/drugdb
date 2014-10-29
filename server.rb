@@ -11,6 +11,7 @@ require_relative 'models/init.rb'
 # routes 
 require_relative 'routes/auth.rb'
 require_relative 'routes/actions.rb'
+require_relative 'routes/display.rb' #for charts
 
 module SST
   class App < Sinatra::Base
