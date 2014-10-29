@@ -1,5 +1,6 @@
 class Display < Sinatra::Base
 	get "/test" do
 		@cpts = Cpt.all
-		:erb test
+		erb :test
+  end
 end

@@ -10,7 +10,6 @@ require_relative 'models/init.rb'
 
 # routes 
 require_relative 'routes/auth.rb'
-require_relative 'routes/actions.rb'
 require_relative 'routes/display.rb' #for charts
 
 module SST
@@ -58,7 +57,6 @@ module SST
 
     # middleware
     use Auth
-    use Actions
 
     get '/' do
       env['warden'].authenticate!
