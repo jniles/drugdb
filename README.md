@@ -51,7 +51,7 @@ drug.db.
 
 ##### Installation
 
-See our INSTALL.md guide.
+See our [INSTALL](./INSTALL.md) guide.
 
 ##### License
 
