@@ -12,6 +12,8 @@ require 'yaml'
 
 # parsers
 require './parsers/inventory'
+require './parsers/sale'
+require './parsers/purchase'
 
 # globals
 VERSION = 0.1
@@ -72,5 +74,15 @@ class OptParse
 end
 
 options = OptParse.parse(ARGV)
+
+# Parse Inventory Counts
 iparser = InventoryCountsParser.new(options)
 iparser.parse()
+
+# Parse Sales
+sparser = SaleParser.new(options)
+sparser.parse()
+
+# Parse Purchases
+pparser = PurchaseParser.new(options)
+pparser.parse()

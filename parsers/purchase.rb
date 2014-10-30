@@ -1,19 +1,23 @@
-# InventoryCountParser
+# PurchaseParser
 #
-# Pulls data out of InventoryCounts .xlsx files and
-# inserts them into the Inventory Count database table
+# Pulls data out of Purchase Log.xlsx files and
+# inserts them into the Purchase database table
+
+# TODO : Eventually use a class-inheritence style
+# infrastructure to combine these parsers into a
+# single parent class and many parser children.
 
 require 'rubyXL'
 
 require './models/init'
-require './models/cpt'
 require './models/health_center'
-require './models/count'
+require './models/cpt'
+require './models/sale'
 
-class InventoryCountsParser
+class PurchaseParser
 
-  MODULE = "PARSER - INVENTORY"
-  FILENAME  = "Inventory Counts.xlsx"
+  MODULE = "PARSER - PURCHASE"
+  FILENAME = "Purchase Log.xlsx"
 
   def _ensure(file)
     File.file?(file)
@@ -62,7 +66,7 @@ class InventoryCountsParser
 
     # TODO : DataMapper must have some way of getting
     # the number of inserted rows, right?
-    initial_count = Count.count
+    initial_count = Purchase.count
 
     # Ignore the first three lines of header content
     content = data.drop(3)
@@ -81,14 +85,14 @@ class InventoryCountsParser
         drug_code = Cpt.get(row[2])
         if not drug_code.nil?
           date = Date.parse(row[4].to_s)
-          Count.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+          Purchase.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
         else
           stdout("Warning: Drug CPT code is nil for row #{row}")
         end
       end
     end
 
-    final_count = Count.count
+    final_count = Purchase.count
     added = final_count - initial_count
 
     stdout("Finished parsing health center : #{center.name}")
