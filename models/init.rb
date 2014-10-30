@@ -22,8 +22,8 @@ require_relative "../parsers/xlsparser"
 DataMapper.finalize
 # WARNING: This is a DEVELOPMENT feature.  Do not run in production,
 # it destroys all data every single tim ethe server is run.
-#DataMapper.auto_migrate!
-DataMapper.auto_upgrade!
+DataMapper.auto_migrate!
+#DataMapper.auto_upgrade!
 
 # Initial loading of data
 # We are in an uninitialized state.  Let's load all the data.
@@ -33,7 +33,7 @@ if User.count == 0
   xls = "user.xls"
   puts "[INIT::WARNING] Table `user` is empty.  Initializing data from #{dataPath}#{xls}."
   parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read().each do |row|
+  parser.read(1).each do |row|
     User.create(:id => row[0], :name => row[1], :email => row[2], :password => row[3], :created => Time.now)
   end
   puts "User.count : #{User.count}"
@@ -44,7 +44,7 @@ if Manager.count == 0
   xls = "manager.xls"
   puts "[INIT::WARNING] Table `manager` is empty.  Initializing data from #{dataPath}#{xls}."
   parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read().each do |row|
+  parser.read(1).each do |row|
     Manager.create(:id => row[0], :name => row[1], :email=> row[2])
   end
   puts "Manager.count : #{Manager.count}"
@@ -55,7 +55,7 @@ if HealthCenter.count == 0
   xls = "health_center.xls"
   puts "[INIT::WARNING] Table `health_center` is empty.  Initializing data from #{dataPath}#{xls}."
   parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read().each do |row|
+  parser.read(1).each do |row|
     manager = Manager.get(row[2])
     HealthCenter.create(:id => row[0], :name => row[1], :manager => manager)
   end
@@ -67,7 +67,7 @@ if Drug.count == 0
   xls = "drug.xls"
   puts "[INIT::WARNING] Table `drugs` is empty.  Initializing data from #{dataPath}#{xls}."
   parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read().each do |row|
+  parser.read(1).each do |row|
     drug = Drug.create(:name => row[1])
     Cpt.create(:code => row[0], :drug => drug)
   end

@@ -1,4 +1,6 @@
-#!/usr/bin/env ruby -I ../lib -I lib
+#!/usr/bin/env ruby
+
+# dependencies
 require 'sinatra'
 require 'sinatra/content_for'
 require 'active_record'

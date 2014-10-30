@@ -1,18 +1,21 @@
 #!/usr/bin/env ruby
 
 # main.rb
-# 
+#
 # This is the main command line runner for
 # all parsers inserting data into the drug.db.
 
-require 'rubyXL'
 require 'optparse'
-require 'optparse/time'
+require 'optparse/date'
 require 'ostruct'
+require 'yaml'
 
+# parsers
 require './parsers/inventory'
 
+# globals
 VERSION = 0.1
+CONFIG = YAML.load(File.open("config.yaml"))
 
 # OptParse
 #   Allows command line control of the parsing scripts.
@@ -21,21 +24,32 @@ class OptParse
   def self.parse(args)
     options = OpenStruct.new
     options.verbose = false
+    options.data_path = CONFIG['abs_data_path']
     options.centers = []
+    options.all_centers = true
 
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: main.rb [options] [filename]"
+
+      opts.separator ""
+      opts.separator "Specific options:"
 
       opts.on('-v', '--[no-]verbose', "Run verbosely.") do |v|
         options.verbose = v
       end
 
-      opts.on("-c", "--health-center [CENTER]", "Import only the given health center.") do |c|
-        options.centers << c
+      opts.on("--date [DATE]", Date, "Import counts, purchase, and sales data for a given date")  do |date|
+        options.date = date
       end
 
-      opts.on("-a", "--all-centers", "Import all health centers in the file.") do |v|
-        options.all_centers = v 
+      opts.on("--health-center x,y,z", Array, "Import only the given health center(s)") do |centers|
+        options.all_centers = false
+        options.centers << centers
+      end
+
+      opts.on("-o", "--out [FILE]", "Log output to file") do |f|
+        puts "Not yet implimented."
+        exit
       end
 
       opts.separator ""
@@ -58,6 +72,5 @@ class OptParse
 end
 
 options = OptParse.parse(ARGV)
-parser = InventoryCountsParser.new(ARGV[0], options)
-parser.parse()
-
+iparser = InventoryCountsParser.new(options)
+iparser.parse()

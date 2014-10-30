@@ -7,11 +7,12 @@ class XLSParser
     @book = Spreadsheet.open xlspath
     @sheet = @book.worksheet sheet
   end
-  def read()
+
+  def read(skip=3)
     rows = []
     breaks = 0
     maxBreaks = 4
-    @sheet.each 3 do |row| # omit header rows, start at fourth row
+    @sheet.each skip do |row| # omit header rows, start at fourth row
       if row.any?
         rows << row
       else

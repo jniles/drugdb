@@ -7,6 +7,7 @@ db/drug.db
 
 # omit temp files (notepad)
 *~
+*~lock*
 
 # untrack all .idea files
 .idea/

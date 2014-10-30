@@ -3,6 +3,10 @@ require 'warden'
 
 class Auth < Sinatra::Base
 
+  #
+  # Warden Configuration
+  #
+
   use Warden::Manager do |config|
     # serialize user to session ->
     config.serialize_into_session{|user| user.id}
@@ -41,6 +45,10 @@ class Auth < Sinatra::Base
       end
     end
   end
+
+  #
+  # Authenication Routes
+  #
 
   # Login form submits here.
   post '/auth/login' do
