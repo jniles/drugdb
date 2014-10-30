@@ -55,4 +55,4 @@ See our [INSTALL](./INSTALL.md) guide.
 
 ##### License
 
-MIT
+[MIT](./LICENSE.md)
