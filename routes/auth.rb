@@ -1,6 +1,46 @@
 require 'pony'
+require 'warden'
 
 class Auth < Sinatra::Base
+
+  use Warden::Manager do |config|
+    # serialize user to session ->
+    config.serialize_into_session{|user| user.id}
+    # serialize user from session <-
+    config.serialize_from_session{|id| User.get(id)}
+    # configuring strategies
+    config.scope_defaults :default,
+                  strategies: [:password],
+                  action: 'auth/unauthenticated'
+    config.failure_app = self
+  end
+
+  Warden::Manager.before_failure do |env,opts|
+    env['REQUEST_METHOD'] = 'POST'
+  end
+
+  Warden::Strategies.add(:password) do
+    # valid params for authentication
+    def valid?
+      params['username'] && params['password']
+    end
+
+    # authenticating a user
+    def authenticate!
+      # find for user
+      user = User.first(name: params['username'])
+      if user.nil?
+          puts "[AUTH] No user!"
+          fail!("Invalid credentials: user does not exist.")
+      elsif user.authenticate(params['password'])
+        puts "[AUTH] Login success!"
+        success!(user)
+      else
+        puts "[AUTH] Login error!"
+        fail!("An error occurred.  Please try again.")
+      end
+    end
+  end
 
   # Login form submits here.
   post '/auth/login' do
