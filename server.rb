@@ -8,11 +8,12 @@ require 'chartkick'
 require 'warden'
 
 # init models
-require_relative 'models/init.rb'
+require './models/init.rb'
 
 # routes 
-require_relative 'routes/auth.rb'
-require_relative 'routes/display.rb' #for charts
+require './routes/auth.rb'
+require './routes/email.rb'
+require './routes/display.rb' #for charts
 
 module SST
   class App < Sinatra::Base
@@ -20,6 +21,7 @@ module SST
 
     # middleware
     use Auth
+    use Emails
 
     get '/' do
       env['warden'].authenticate!
