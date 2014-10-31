@@ -19,7 +19,7 @@
                             <strong style="font-size: 20px; color:#ffffff"><b>Stock Alert</b></strong>
                           </td>
                           <td style="line-height: 19px;font-size: 10px; color:#ffffff" align="right">
-                            %{Health Center}</td>
+                            <%= health_center %>
                         </tr>
                       </tbody>
                     </table>
@@ -47,10 +47,10 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <% for @alert in @alerts -%>
+                                      <% for alert in alerts %>
                                         <tr>
-                                          <% for @property in @alert -%>
-                                            <td style="padding:2px;border:1px solid black;border-bottom:0;border-left:0;" align="center"><%= @property %></td>
+                                          <% for property in alert %>
+                                            <td style="padding:2px;border:1px solid black;border-bottom:0;border-left:0;" align="center"><%= property %></td>
                                           <% end %>
                                         </tr>
                                       <% end %>
