@@ -16,10 +16,10 @@
                       <tbody>
                         <tr>
                           <td align="left">
-                            <strong style="font-size: 20px; color:#ffffff"><b>Stock Alert</b></strong>
+                            <strong style="font-size: 20px; color:#ffffff"><b>Low Stock Alert!</b></strong>
                           </td>
                           <td style="line-height: 19px;font-size: 10px; color:#ffffff" align="right">
-                            <%= health_center %>
+                            <%= data[:health_center] %>
                         </tr>
                       </tbody>
                     </table>
@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                   <td style="background-color: #ffffff; padding-top: 5px; padding-left: 12px; padding-right: 12px; padding-bottom: 12px;" bgcolor="#ffffff">
-                  <div style="line-height: 18px; font-size: 16px; color: #000000; border-bottom: 1px solid #efefef; margin-bottom: 5px; margin-top: 20px">The following drug(s) are in need of reorder:</div>
+                  <div style="line-height: 18px; font-size: 16px; color: #000000; margin-bottom: 5px; margin-top: 20px">The following drug(s) are in need of reorder:</div>
                   <table cellpadding="0" cellspacing="0" border="0">
                     <tbody>
                       <tr>
@@ -41,16 +41,16 @@
                                       <tr>
                                         <th style="border-right: 1px solid black;">Drug Name</th>
                                         <th style="border-right: 1px solid black;">CPT</th>
-                                        <th style="border-right: 1px solid black; padding : 2px">Stock</th>
+                                        <th style="border-right: 1px solid black; padding : 2px">Current Stock</th>
                                         <th style="border-right: 1px solid black; padding : 2px">Consumption Rate</th>
                                         <th>Stock Out</th>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <% for alert in alerts %>
+                                      <% data['alerts'].each do |alert| %>
                                         <tr>
-                                          <% for property in alert %>
-                                            <td style="padding:2px;border:1px solid black;border-bottom:0;border-left:0;" align="center"><%= property %></td>
+                                          <% alert.each do |k, v| %>
+                                            <td style="padding:2px;border:1px solid black;border-bottom:0;border-left:0;" align="center"><%= v %></td>
                                           <% end %>
                                         </tr>
                                       <% end %>
