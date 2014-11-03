@@ -1,0 +1,18 @@
+CREATE TABLE "users" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "email" VARCHAR(75), "password" VARCHAR(60), "token" VARCHAR(100), "created" TIMESTAMP, "updated" TIMESTAMP, "active" INTEGER DEFAULT 0);
+CREATE TABLE "managers" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "email" VARCHAR(75));
+CREATE TABLE "health_centers" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "manager_id" INTEGER NOT NULL);
+CREATE INDEX "index_health_centers_manager" ON "health_centers" ("manager_id");
+CREATE TABLE "drugs" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "barcode" INTEGER, "vendor" VARCHAR(75));
+
+CREATE TABLE "cpts" ("code" VARCHAR(50) NOT NULL, "drug_id" INTEGER NOT NULL, PRIMARY KEY("code"));
+CREATE INDEX "index_cpts_drug" ON "cpts" ("drug_id");
+
+CREATE TABLE "corrections" ("count" INTEGER NOT NULL, "date" DATE NOT NULL, "health_center_id" INTEGER NOT NULL, "cpt_code" VARCHAR(50) NOT NULL, PRIMARY KEY("count", "date", "health_center_id", "cpt_code"));
+CREATE TABLE "counts" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "count" INTEGER, "date" DATE, "health_center_id" INTEGER NOT NULL, "cpt_code" VARCHAR(50) NOT NULL);
+CREATE TABLE "purchases" ("count" INTEGER NOT NULL, "date" DATE NOT NULL, "health_center_id" INTEGER NOT NULL, "cpt_code" VARCHAR(50) NOT NULL, PRIMARY KEY("count", "date", "health_center_id", "cpt_code"));
+CREATE TABLE "sales" ("count" INTEGER NOT NULL, "date" DATE NOT NULL, "health_center_id" INTEGER NOT NULL, "cpt_code" VARCHAR(50) NOT NULL, PRIMARY KEY("count", "date", "health_center_id", "cpt_code"));
+
+CREATE UNIQUE INDEX unique_counts on counts (count, date, health_center_id, cpt_code);
+CREATE UNIQUE INDEX unique_sales on sales (count, date, health_center_id, cpt_code);
+CREATE UNIQUE INDEX unique_purchases on purchases (count, date, health_center_id, cpt_code);
+CREATE UNIQUE INDEX unique_corrections on corrections (count, date, health_center_id, cpt_code);
