@@ -22,6 +22,7 @@ module SST
     # middleware
     use Auth
     use Emails
+    #use Graphs # TODO : impliment this
 
     get '/' do
       env['warden'].authenticate!

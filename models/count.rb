@@ -1,10 +1,8 @@
 class Count 
     include DataMapper::Resource
 
-    property :id                  ,Serial
-    property :count               ,Integer
-    property :date                ,String       ,length: 0..75
-
-    belongs_to :health_center
-    belongs_to :cpt
+    property :count               ,Integer      ,:key => true
+    property :date                ,Date         ,:key => true
+    belongs_to :health_center     ,:key => true
+    belongs_to :cpt               ,:key => true
 end

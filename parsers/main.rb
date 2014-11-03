@@ -76,8 +76,8 @@ end
 options = OptParse.parse(ARGV)
 
 # Parse Inventory Counts
-iparser = InventoryCountsParser.new(options)
-iparser.parse()
+#iparser = InventoryCountsParser.new(options)
+#iparser.parse()
 
 # Parse Sales
 sparser = SaleParser.new(options)

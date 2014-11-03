@@ -1,6 +1,9 @@
 require "data_mapper"
 require "bcrypt"
 
+# TODO : To be safe, this entire script should be wrapped
+# in a class and configurable via config.yaml. Specifically
+# the database parameters.
 dataPath = "data/init/"
 url = "sqlite://#{Dir.pwd}/db/drug.db"
 DataMapper.setup :default, url
@@ -16,14 +19,17 @@ require_relative "count"
 require_relative "purchase"
 require_relative "sale"
 
-# Parser require
-require_relative "../parsers/xlsparser"
+# TODO : This is temporary for development purposes ONLY
+# Ideally, this should listen to a flag in config.yaml
+# that says "are we in install mode?" and loads in the
+# data if true.
+require "./parsers/xlsparser"
 
 DataMapper.finalize
 # WARNING: This is a DEVELOPMENT feature.  Do not run in production,
 # it destroys all data every single tim ethe server is run.
 #DataMapper.auto_migrate!
-DataMapper.auto_upgrade!
+#DataMapper.auto_upgrade!
 
 # Initial loading of data
 # We are in an uninitialized state.  Let's load all the data.

@@ -1,11 +1,10 @@
 class Purchase 
     include DataMapper::Resource
 
-    property :id                  ,Serial
-    property :count               ,Integer
-    property :date                ,String       ,length: 0..75
+    property :count               ,Integer      ,:key => true
+    property :date                ,Date         ,:key => true
 
-    belongs_to :health_center
-    belongs_to :cpt
+    belongs_to :health_center, key: true
+    belongs_to :cpt, key: true
 end
 
