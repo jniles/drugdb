@@ -26,10 +26,8 @@ require_relative "sale"
 require "./parsers/xlsparser"
 
 DataMapper.finalize
-# WARNING: This is a DEVELOPMENT feature.  Do not run in production,
-# it destroys all data every single tim ethe server is run.
-#DataMapper.auto_migrate!
-#DataMapper.auto_upgrade!
+# Upgrade tables to init constraints
+DataMapper.auto_upgrade!
 
 # Initial loading of data
 # We are in an uninitialized state.  Let's load all the data.

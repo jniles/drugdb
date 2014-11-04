@@ -15,6 +15,8 @@ class User
   property :created       ,DateTime
   property :updated       ,DateTime
   property :active        ,Integer        ,default: 0
+  property :reset_uuid    ,String
+  property :reset_time    ,Date
 
   # methods
   def generate_token

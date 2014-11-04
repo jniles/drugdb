@@ -97,7 +97,7 @@ class InventoryCountsParser
 
   def stdout(data)
     if @options.verbose
-      puts "[#{MODULE}][#{Time.new()}] #{data}."
+      puts "[#{MODULE}][#{Date.strftime('%I:%M:%S')}] #{data}."
     end
   end
 end

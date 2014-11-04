@@ -1,5 +1,6 @@
 require 'pony'
 require 'warden'
+require 'securerandom'
 
 class Auth < Sinatra::Base
 
@@ -79,16 +80,20 @@ class Auth < Sinatra::Base
   end
   
   post '/auth/reset' do
-    puts "Sending an email to #{params[:email]}..."
-    # gets 12 pseudorandom characters in the ASCII A-Z + symbols + a-z range 
-    arf =(0...12).map { (65 + rand(56)).chr }.join
+    # find the appropriate user
     user =  User.first(:email => params[:email])
-    user.update({ :password => arf })
-    Pony.mail({
-	    :to => params[:email],
-	    :subject => "Your password for the Planned Parenthood Drug Database has been reset",
-	    :body => "Your password has been reset to x. Please click the link below to access your account and change your password.",
-	    :via => :sendmail
-	  })
+    if user
+      uuid = securerandom.uuid
+      user.update({ :reset_uuid => uuid, :reset_time => Date.new })
+      p uuid
+      Pony.mail({
+        :to => params[:email],
+        :subject => "Your password for the Planned Parenthood Drug Database has been reset",
+        :body => "Your password has been reset to x. Please click the link below to access your account and change your password.",
+        :via => :sendmail
+      })
+    else
+      #erb :password_error
+    end
   end
 end
