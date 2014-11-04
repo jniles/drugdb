@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>DrugDB: The Drug Management Database</title>
+
+    <link href="/css/normalize.css" rel="stylesheet">
+    <link href="/css/foundation.min.css" rel="stylesheet">
+    <link href="/css/fonts/foundation-icons.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="row" style="margin-top:12em;">
+      <div class="large-offset-4 large-4 columns">
+        <form action="/account/reset" method="post" name="reset">
+
+          <% if error != 0 %>
+            <div class="row">
+              <div class="large-12 columns error">
+                <label>Please enter your email address
+                  <input type="email" name="email" placeholder="user@mail.org">
+                </label>
+                <small class="error">I cannot find a record for <i><%= error[:email] %></i>.  Please try again.</small>
+              </div>
+            </div>
+          <% else %>
+            <div class="row">
+              <div class="large-12 columns">
+                <label>Please enter your email address
+                  <input type="email" name="email" placeholder="user@mail.org">
+                </label>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="row">
+            <div class="large-12 columns">
+              <button class="button tiny" type="submit">Submit</button>
+              <a class="button tiny" href="/login.html">Back</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -74,26 +74,4 @@ class Auth < Sinatra::Base
     env['warden'].logout
     redirect '/'
   end
-
-  get '/auth/reset' do
-    send_file File.join('public', 'reset.html')
-  end
-  
-  post '/auth/reset' do
-    # find the appropriate user
-    user =  User.first(:email => params[:email])
-    if user
-      uuid = securerandom.uuid
-      user.update({ :reset_uuid => uuid, :reset_time => Date.new })
-      p uuid
-      Pony.mail({
-        :to => params[:email],
-        :subject => "Your password for the Planned Parenthood Drug Database has been reset",
-        :body => "Your password has been reset to x. Please click the link below to access your account and change your password.",
-        :via => :sendmail
-      })
-    else
-      #erb :password_error
-    end
-  end
 end

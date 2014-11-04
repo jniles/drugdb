@@ -13,6 +13,7 @@ require './models/init'
 # routes 
 require './routes/auth'
 require './routes/email'
+require './routes/account'
 require './routes/display' #for charts
 
 module SST
@@ -22,6 +23,7 @@ module SST
     # middleware
     use Auth
     use Emails
+    use Accounts
     #use Graphs # TODO : impliment this
 
     get '/' do
