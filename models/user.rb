@@ -15,8 +15,8 @@ class User
   property :created       ,DateTime
   property :updated       ,DateTime
   property :active        ,Integer        ,default: 0
-  property :reset_uuid    ,String
-  property :reset_time    ,Date
+  property :uuid_token    ,String         ,length: 36 #exactly 36. UUIDs always the same size
+  property :uuid_date     ,DateTime
 
   # methods
   def generate_token

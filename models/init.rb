@@ -25,6 +25,7 @@ require_relative "sale"
 # data if true.
 require "./parsers/xlsparser"
 
+
 DataMapper.finalize
 # Upgrade tables to init constraints
 DataMapper.auto_upgrade!
