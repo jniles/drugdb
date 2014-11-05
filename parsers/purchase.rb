@@ -85,7 +85,10 @@ class PurchaseParser
         drug_code = Cpt.get(row[2])
         if not drug_code.nil?
           date = Date.parse(row[4].to_s)
-          Purchase.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+          begin
+            Purchase.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+          rescue
+          end
         else
           stdout("Warning: Drug CPT code is nil for row #{row}")
         end
