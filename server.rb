@@ -31,5 +31,10 @@ module SST
       "Hello world"
     end
 
+    get '/jonathan' do
+      env['warden'].authenticate!
+      "NEW ROUTE"
+    end
+
   end
 end
