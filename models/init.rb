@@ -25,6 +25,7 @@ require_relative "sale"
 # data if true.
 require "./parsers/xlsparser"
 
+
 DataMapper.finalize
 # WARNING: This is a DEVELOPMENT feature.  Do not run in production,
 # it destroys all data every single tim ethe server is run.
