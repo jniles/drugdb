@@ -8,12 +8,13 @@ require 'chartkick'
 require 'warden'
 
 # init models
-require './models/init.rb'
+require './models/init'
 
 # routes 
-require './routes/display.rb' #for charts
-require './routes/auth.rb'
-require './routes/email.rb'
+require './routes/auth'
+require './routes/email'
+require './routes/account'
+require './routes/display' #for charts
 
 module SST
   class App < Sinatra::Base
@@ -22,7 +23,7 @@ module SST
     # middleware
     use Auth
     use Emails
-    use DrugDisplay
+    use Accounts
     #use Graphs # TODO : impliment this
 
     get '/' do
@@ -30,9 +31,10 @@ module SST
       "Hello world"
     end
 
-    get '/protected' do
+    get '/jonathan' do
       env['warden'].authenticate!
-      "Hey, you are logged in!"
+      "NEW ROUTE"
     end
+
   end
 end

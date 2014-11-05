@@ -1,7 +1,8 @@
 require 'pony'
 require 'warden'
-require 'securerandom' #uuid stuff
-require 'date' #uuid stuff
+
+require 'securerandom'
+require 'date'
 
 class Auth < Sinatra::Base
 

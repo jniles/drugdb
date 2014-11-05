@@ -4,6 +4,7 @@
 # inserts them into the Inventory Count database table
 
 require 'rubyXL'
+require 'date'
 
 require './models/init'
 require './models/cpt'
@@ -81,7 +82,10 @@ class InventoryCountsParser
         drug_code = Cpt.get(row[2])
         if not drug_code.nil?
           date = Date.parse(row[4].to_s)
-          Count.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+          begin
+            Count.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+          rescue
+          end
         else
           stdout("Warning: Drug CPT code is nil for row #{row}")
         end
@@ -97,7 +101,7 @@ class InventoryCountsParser
 
   def stdout(data)
     if @options.verbose
-      puts "[#{MODULE}][#{Time.new()}] #{data}."
+      puts "[#{MODULE}][#{Time.new.strftime('%I:%M:%S')}] #{data}."
     end
   end
 end

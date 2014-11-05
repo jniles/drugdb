@@ -1,34 +1,34 @@
 <html>
-  <title>
-    <%= @title %>
-  </title>
-
+<head>
+  <title><%= @title %></title>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="/js/chartkick.js"></script>
   <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/layout.css">
-  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
-  <body>
-    <header>
-      <div class="logo">
-        <a href="#"><img src="/images/logo.jpg" alt="Planned Parenthood logo"/></a>
-        <h3>Drug Inventory</h3>
-      </div><!-- end of "logo"-->
+  <link href="/css/layout.css" rel="stylesheet" >
+  <link href="/css/normalize.css" rel="stylesheet">
+  <link href="/css/normalize.css" rel="stylesheet">
+  <link href="/css/foundation.min.css" rel="stylesheet">
+  <link href="/css/fonts/foundation-icons.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="#"><img src="/images/logo.jpg" alt="Planned Parenthood logo"/></a>
+      <h3>Drug Inventory</h3>
+    </div>
 
-      <div class="main-menu">
-        <ul>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/settings">Settings</a></li>
-        </ul>
-      </div><!-- end of "main-menu" -->
-
-      <nav>
-        <form>
-          <span class="search"><input type="text" placeholder="search"></span>
-        </form>
-      </nav>
-    </header>
-    <%= yield :page_body %>
-  </body>
-
+    <div class="main-menu">
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/settings">Settings</a></li>
+      </ul>
+    </div>
+    <nav>
+      <form>
+        <span class="search"><input type="text" placeholder="search"></span>
+      </form>
+    </nav>
+  </header>
+  <%= yield %>
+</body>
 </html>
