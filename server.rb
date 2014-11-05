@@ -11,9 +11,9 @@ require 'warden'
 require './models/init.rb'
 
 # routes 
+require './routes/display.rb' #for charts
 require './routes/auth.rb'
 require './routes/email.rb'
-require './routes/display.rb' #for charts
 
 module SST
   class App < Sinatra::Base
@@ -22,6 +22,7 @@ module SST
     # middleware
     use Auth
     use Emails
+    use DrugDisplay
     #use Graphs # TODO : impliment this
 
     get '/' do

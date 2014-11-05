@@ -1,5 +1,9 @@
-class Display < Sinatra::Base
-	get "/test" do
+class DrugDisplay < Sinatra::Base
+
+	set :views, Dir.pwd + "/views"
+
+	get '/test/display' do
+		env['warden'].authenticate!
 		@cpts = Cpt.all
 		erb :test
   end
