@@ -1,5 +1,7 @@
 require 'pony'
 require 'warden'
+require 'securerandom' #uuid stuff
+require 'date' #uuid stuff
 
 class Auth < Sinatra::Base
 
@@ -81,14 +83,48 @@ class Auth < Sinatra::Base
   post '/auth/reset' do
     puts "Sending an email to #{params[:email]}..."
     # gets 12 pseudorandom characters in the ASCII A-Z + symbols + a-z range 
-    arf =(0...12).map { (65 + rand(56)).chr }.join
-    user =  User.first(:email => params[:email])
-    user.update({ :password => arf })
+		begin
+	    user =  User.first(:email => params[:email]) #try to find the user
+		rescue #whoops, no such email exists
+			fail!("No user found for that email. Please try again.")
+		end
+		if not user.uuid_date or user.uuid_date < Date.now
+			new_uuid = SecureRandom.uuid
+			user.update({ :uuid_token => new_uuid, :uuid_date => Date.now })
+		end
+#    arf =(0...12).map { (65 + rand(56)).chr }.join
+#    user.update({ :password => arf })
     Pony.mail({
 	    :to => params[:email],
-	    :subject => "Your password for the Planned Parenthood Drug Database has been reset",
-	    :body => "Your password has been reset to x. Please click the link below to access your account and change your password.",
+	    :subject => "Please reset your password for the Planned Parenthood Drug Inventory Databse",
+	    :body => "You, or someone claiming to be you, has asked to reset your password. Please go to http://localhost:drugdbport/auth/change/#{new_uuid} to change your password.", #TODO: Change localhost:whatever to our actual URL
 	    :via => :sendmail
 	  })
   end
+
+	get '/auth/change/:uuid' do
+		begin
+			user = User.first(:uuid_token => params[:uuid])
+		rescue #you gave an invalid one...
+			fail!("The link you provided is either invalid or has expired. If you intended to reset your password and have input this link correctly, please try to reset it again.")
+		end
+		#TODO: Find out how to subtract dates so we can say "UUID less than a week old" or whatever
+		#cool, so yours is valid. Display change form...we make it a template so it has the correct links
+		@uuid = params[:uuid]
+		erb :change
+	end
+
+	post '/auth/change/:uuid' do
+		begin
+			user = User.first(:uuid_token => params[:uuid]) #check again just in case
+		rescue
+			fail!("The UUID you have provided is no longer valid. Please try to reset your password again using our automated system.")
+		end
+		#we do the password matching check in JS, not on the server.
+		#now take the new password and shove it in to user
+		user.update({:password => params[:new_password]})
+		"Password updated successfully!"
+	end
+
+
 end
