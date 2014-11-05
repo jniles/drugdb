@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class Accounts < Sinatra::Base
 
   #
@@ -7,14 +9,14 @@ class Accounts < Sinatra::Base
   set :views, Dir.pwd + "/views"
 
   get '/account/reset' do
-    erb :"account/reset", :locals => { :error => 0 }
+    erb :"account/reset", :locals => { :error => nil }
   end
-  
+
   post '/account/reset' do
     # find the appropriate user
     user =  User.first(:email => params[:email])
     if user
-      uuid = securerandom.uuid
+      uuid = SecureRandom.uuid
       user.update({ :reset_uuid => uuid, :reset_time => Date.new })
       p uuid
       Pony.mail({
@@ -23,8 +25,9 @@ class Accounts < Sinatra::Base
         :body => "Your password has been reset to x. Please click the link below to access your account and change your password.",
         :via => :sendmail
       })
+      erd :"account/confirmation", :locals => { :email => params[:email] }
     else
-      erb "account/reset", :locals => { :email => params[:email] }
+      erb :"account/reset", :locals => { :error => params[:email] }
     end
   end
 end
