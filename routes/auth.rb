@@ -86,9 +86,9 @@ class Auth < Sinatra::Base
     # gets 12 pseudorandom characters in the ASCII A-Z + symbols + a-z range 
 		user =  User.first(:email => params[:email]) #try to find the user
 		if not user.nil?
-			if not user.uuid_date or user.uuid_date < Date.new
+			if not user.uuid_date or user.uuid_date < Date.today
 				new_uuid = SecureRandom.uuid
-				user.update({ :uuid_token => new_uuid, :uuid_date => Date.new })
+				user.update({ :uuid_token => new_uuid, :uuid_date => Date.today })
 			end
 #    arf =(0...12).map { (65 + rand(56)).chr }.join
 #    user.update({ :password => arf })
@@ -96,7 +96,7 @@ class Auth < Sinatra::Base
 				:from => "admin@drugdb",
 				:to => params[:email],
 				:subject => "Please reset your password for the Planned Parenthood Drug Inventory Databse",
-				:body => "You, or someone claiming to be you, has asked to reset your password. Please go to http://localhost:drugdbport/auth/change/#{new_uuid} to change your password.", #TODO: Change localhost:whatever to our actual URL
+				:body => "You, or someone claiming to be you, has asked to reset your password. Please go to http://localhost:7999/auth/change/#{new_uuid} to change your password.", #TODO: Change localhost:whatever to our actual URL
 				:via => :smtp,
 				:via_options => {
 					:address => "smtp.ncf.edu",
