@@ -29,13 +29,7 @@ module SST
 
     get '/' do
       env['warden'].authenticate!
-      "Hello world"
+      erb :main
     end
-
-    get '/jonathan' do
-      env['warden'].authenticate!
-      "NEW ROUTE"
-    end
-
   end
 end

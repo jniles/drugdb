@@ -71,7 +71,7 @@ class Auth < Sinatra::Base
      redirect '/login.html'
    end
 
-  get '/auth/logout' do 
+  get '/auth/logout' do
     env['warden'].raw_session.inspect
     env['warden'].logout
     redirect '/'
@@ -80,10 +80,10 @@ class Auth < Sinatra::Base
   get '/auth/reset' do
     send_file File.join('public', 'reset.html')
   end
-  
+
   post '/auth/reset' do
     puts "Sending an email to #{params[:email]}..."
-    # gets 12 pseudorandom characters in the ASCII A-Z + symbols + a-z range 
+    # gets 12 pseudorandom characters in the ASCII A-Z + symbols + a-z range
 		user =  User.first(:email => params[:email]) #try to find the user
 		if not user.nil?
 			if not user.uuid_date or user.uuid_date < Date.today
@@ -127,7 +127,6 @@ class Auth < Sinatra::Base
 		user = User.first(:uuid_token => params[:uuid]) #check again just in case
 		if not user.nil?
 			user.update({:password => params[:new_password], :uuid_token => nil, :uuid_date => nil}) #wipe old tokens
-			"Password updated successfully!"
 			redirect "/"
 		else
 			"The UUID you have provided is no longer valid. Please try to reset your password again <a href='/auth/reset/'>using our automated system.</a>"

@@ -1,34 +1,37 @@
+<!doctype html>
 <html>
 <head>
   <title><%= @title %></title>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript" src="/js/chartkick.js"></script>
-  <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
-  <link href="/css/layout.css" rel="stylesheet" >
-  <link href="/css/normalize.css" rel="stylesheet">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="/css/normalize.css" rel="stylesheet">
   <link href="/css/foundation.min.css" rel="stylesheet">
   <link href="/css/fonts/foundation-icons.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <a href="#"><img src="/images/logo.jpg" alt="Planned Parenthood logo"/></a>
-      <h3>Drug Inventory</h3>
-    </div>
+  <div class="contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
 
-    <div class="main-menu">
-      <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/settings">Settings</a></li>
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">Drug Inventory</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"></a></li></span>
       </ul>
-    </div>
-    <nav>
-      <form>
-        <span class="search"><input type="text" placeholder="search"></span>
-      </form>
+
+      <section class="top-bar-section">
+        <ul class="right">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/drugs">Drugs</a></li>
+          <li><a href="/auth/logout">Logout</a></li>
+        </ul>
+      </section>
+
     </nav>
-  </header>
-  <%= yield %>
+  </div>
+  <main class="row">
+    <%= yield %>
+  </main>
 </body>
 </html>
