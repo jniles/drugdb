@@ -24,6 +24,7 @@ module SST
     use Auth
     use Emails
     use Accounts
+    use Display
     #use Graphs # TODO : impliment this
 
     get '/' do
