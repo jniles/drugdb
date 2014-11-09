@@ -5,6 +5,22 @@
 # This is the main command line runner for
 # all parsers inserting data into the drug.db.
 
+# TODO
+#  The following features are sorely missing, to add
+#  dependency management and crash managment to the
+#  application:
+#    --rebuild-data   Rebuilding the database would drop
+#                     all the data in the table using a
+#                     DELETE FROM, then build all the tables
+#                     in the init directory.  This would
+#                     allow a health center manager to change
+#                     a drug name (for example) by manually
+#                     updating the drug.xlsx file in the init
+#                     directory and rebuilding the data.
+#
+#    --build-dep      Build the init dependencies if there are
+#                     none built before building the database.
+
 require 'optparse'
 require 'optparse/date'
 require 'ostruct'
@@ -17,6 +33,7 @@ require './parsers/purchase'
 
 # globals
 VERSION = 0.1
+# TODO : include a init directory here in the config file
 CONFIG = YAML.load(File.open("config.yaml"))
 
 # OptParse
