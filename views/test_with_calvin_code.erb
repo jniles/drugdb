@@ -1,0 +1,31 @@
+<div class="container">
+
+  <div class="index-header"><thead>Index</thead></div>
+  <table>
+		<tr>
+			<th>CPT Code</th>
+			<th>Name</th>
+			<th>Vendor</th>
+      <th>Count</th>
+      <th></th>
+    </tr>
+		<% for drug_data in @cpts %>
+      <tr>
+			<%=begin 
+		       <td class="status"><div class="status -<%= drug_data.status %>"></div> <%= drug_data.status %> </td>
+					 =end %>
+        <td><%= drug_data.code %></td>
+				<td><%= drug_data.drug.name %></td>
+				<td><%= drug_data.drug.vendor %></td>
+				<td>1</td>
+			<%=begin
+				<%# <td><%= drug_data.Par_lvl %></td> 
+				<td><%= drug_data.expiration_date %></td>
+				<td><%= chart_link  'info', @location, drug_data.Dname, "chart-#{index}" %></td> %>
+		=end%>
+      </tr>
+    <% end %>
+  </table>
+
+  <%# TODO: pagination, use will_paginate gem %>
+</div><!-- end of "container" -->
