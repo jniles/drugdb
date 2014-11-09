@@ -14,6 +14,7 @@ require './models/init'
 require './routes/auth'
 require './routes/email'
 require './routes/account'
+require './routes/corrections'
 require './routes/display' #for charts
 
 module SST
