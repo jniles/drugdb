@@ -24,8 +24,9 @@ module SST
     use Auth
     use Emails
     use Accounts
-    #use Display
+    use DrugDisplay
     #use Graphs # TODO : impliment this
+    #use Display
 
     get '/' do
       env['warden'].authenticate!

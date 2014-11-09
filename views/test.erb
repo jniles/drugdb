@@ -1,20 +1,21 @@
 <div class="container">
 
-  <div class="index-header"><thead>Index</thead></div>
-  <table>
+	<table>
+		<thead>All Drugs</thead>
 		<tr>
 			<th>CPT Code</th>
 			<th>Name</th>
 			<th>Vendor</th>
       <th>Count</th>
-      <th></th>
+      <th>Consumption</th>
     </tr>
-		<% for drug_data in @cpts %>
+		<% for cpt in @drug_data %>
       <tr>
-        <td><%= drug_data.code %></td>
-				<td><%= drug_data.drug.name %></td>
-				<td><%= drug_data.drug.vendor %></td>
-				<td>1</td>
+        <td><%= cpt[:code] %></td>
+				<td><%= cpt[:name] %></td>
+				<td><%= cpt[:vendor] %></td>
+				<td><%= cpt[:current_count] %></td>
+				<td><a>View</a></td>
       </tr>
     <% end %>
   </table>
