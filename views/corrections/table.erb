@@ -1,0 +1,36 @@
+<div class="row" style="margin-top:1em">
+  <table class="table">
+    <thead>
+      <tr style="background-color:#003f82;">
+        <% if data.center %>
+          <!-- TODO: Put these in a stylesheet as a class -->
+          <th colspan="4" style="color:#fff;">Health Center: <%= data.center.name %></th>
+        <% else %>
+          <th colspan="4" style="color:#fff;">All Health Centers</th>
+        <% end %>
+      </tr>
+      <tr>
+        <th>CPT Code</th>
+        <th>Drug</th>
+        <th>Count</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if data.corrections.length > 0 %>
+        <% data.corrections.each do |correction| %>
+          <tr>
+            <td><%= correction.cpt_code %></td>
+            <td><%= correction.cpt.drug.name %></td>
+            <td><%= correction.count %></td>
+            <td><%= correction.date %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4"><i class="fi fi-info"></i> There do not seem to be any corrections recorded in the database.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

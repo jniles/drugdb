@@ -25,6 +25,7 @@ module SST
     use Auth
     use Emails
     use Accounts
+    use Corrections
     use DrugDisplay
     #use Graphs # TODO : impliment this
     #use Display

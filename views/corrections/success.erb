@@ -1,7 +1,7 @@
-<div class="row" style="margin-top:12em;">
-  <div class="large-offset-4 large-4 columns">
+<div class="row" style="margin-top:1em;">
+  <div class="large-offset-1 large-10 columns">
     <div class="panel callout radius">
-      <strong>Success!</strong> Added a <%= corrections.total %> corrections to the database.
+      <strong><i class="fi fi-page"></i> Success!</strong> You added a new correction to the database!
     </div>
     <table class="table">
       <thead>
@@ -15,14 +15,14 @@
           <th>Date</th>
       </thead>
       <tbody>
-        <% data['corrections'].each do |correction| %>
+        <% data.corrections.each do |correction| %>
           <tr>
-            <td><%= correction.cpt %></td>
-            <td><%= correction.name %></td>
-            <td><%= correction.count %></td>
-            <td><%= correction.date %></td>
+            <td><%= correction[:cpt] %></td>
+            <td><%= correction[:name] %></td>
+            <td><%= correction[:count] %></td>
+            <td><%= correction[:date] %></td>
           </tr>
-          <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>
