@@ -1,0 +1,23 @@
+<div class="row" style="margin-top:1em">
+  <table class="table">
+    <thead>
+      <tr style="background-color:#003f82;">
+        <th colspan="4" style="color:#fff;"> <i class="fi fi-clipboard-notes"></i> Drug Inventory is running!</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Current User</th>
+        <td><%= data.user.name %></td>
+      </tr>
+      <tr>
+        <th>Startup Time</th>
+        <td><%= data.startup.strftime("%a %b %d, %Y %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <th>System Uptime</th>
+        <td><%= data.uptime %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -6,12 +6,14 @@ require 'sinatra/content_for'
 require 'active_record'
 require 'chartkick'
 require 'warden'
+require 'date'
 
 # init models
 require './models/init'
 
-# routes 
+# routes
 require './routes/auth'
+require './routes/home'
 require './routes/email'
 require './routes/account'
 require './routes/corrections'
@@ -23,6 +25,7 @@ module SST
 
     # middleware
     use Auth
+    use Home
     use Emails
     use Accounts
     use Corrections
