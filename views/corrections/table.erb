@@ -23,7 +23,7 @@
             <td><%= correction.cpt_code %></td>
             <td><%= correction.cpt.drug.name %></td>
             <td><%= correction.count %></td>
-            <td><%= correction.date %></td>
+            <td><%= correction.date.strftime('%b %d, %Y') %></td>
           </tr>
         <% end %>
       <% else %>
