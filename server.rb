@@ -35,7 +35,7 @@ module SST
 
     get '/' do
       env['warden'].authenticate!
-      erb :main
+      redirect "/home"
     end
   end
 end

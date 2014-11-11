@@ -57,7 +57,7 @@ class Auth < Sinatra::Base
   post '/auth/login' do
     env['warden'].authenticate!
     if session[:return_to].nil?
-      redirect '/home'
+      redirect '/'
     else
       redirect session[:return_to]
     end

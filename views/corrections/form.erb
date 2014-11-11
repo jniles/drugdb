@@ -35,7 +35,7 @@
 
           <div class="large-12 columns <%= data.errors[:date] ? 'error' : ' ' %>">
             <label>Date
-              <input type="date" name="date" placeholder="e.g. 12/25/2014" required>
+              <input type="date" name="date" placeholder="YYYY-MM-DD" required>
             </label>
             <% if data.errors[:date] %>
               <small class="error">This date doesn't look right.  Are you sure this is correct?</small>
