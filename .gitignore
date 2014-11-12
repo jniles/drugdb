@@ -15,3 +15,4 @@ db/drug.db
 
 # ignore partial emails
 email/*.html
+views/test_with_calvin_code.erb

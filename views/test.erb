@@ -1,7 +1,13 @@
 <div class="container">
 
 	<table>
-		<thead>All Drugs</thead>
+		<thead>
+			<tr>
+				<td>All Drugs</td>
+				<td><a id="zero_count_hide">Show/Hide Zero Counts</a></td>
+				<td>Select Health Center</td>
+			</tr>
+		</thead>
 		<tr>
 			<th>CPT Code</th>
 			<th>Name</th>
@@ -10,7 +16,7 @@
       <th>Consumption</th>
     </tr>
 		<% for cpt in @drug_data %>
-      <tr>
+			<tr <% if cpt[:current_count] == 0 then %> class="zero-count" <% end %>>
         <td><%= cpt[:code] %></td>
 				<td><%= cpt[:name] %></td>
 				<td><%= cpt[:vendor] %></td>
@@ -22,3 +28,4 @@
 
   <%# TODO: pagination, use will_paginate gem %>
 </div><!-- end of "container" -->
+<script type="text/javascript" src="/js/drugdisplay.js"></script>
