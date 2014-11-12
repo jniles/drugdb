@@ -6,8 +6,6 @@
 
 require 'spreadsheet'
 
-CONFIG = YAML.load(File.open("config.yaml"))
-
 # TODO
 #   Replace this class with a simple function, that reads
 #   data using the RubyXL gem from *.xlsx files.  This will
@@ -29,7 +27,6 @@ class XLSParser
       if row.any?
         rows << row
       else
-        puts "[PARSER::WARNING] Omitting empty row."
         breaks += 1
       end
       if maxBreaks < breaks # Prevent reading 1000+ empty lines.  Break after maxBreaks empty rows have been reached.
@@ -51,23 +48,25 @@ class Controller
       raise "ERROR: Database file not defined.  Please run 'parser/main.rb --install' to setup the database."
     end
 
-    puts "Rebuilding database."
+    puts "Wiping all database tables..."
 
     # Drop values in each database table
-    Sale.destroy
-    Count.destroy
-    Purchase.destroy
-    Correction.destroy
-    Cpt.destroy
-    Drug.destroy
-    HealthCenter.destroy
-    Manager.destroy
-    User.destroy
+    Sale.all.destroy
+    Count.all.destroy
+    Purchase.all.destroy
+    Correction.all.destroy
+    Cpt.all.destroy
+    Drug.all.destroy
+    HealthCenter.all.destroy
+    Manager.all.destroy
+    User.all.destroy
+
+    DataMapper.finalize
 
     # The database is now wiped clean.  Let's import the fresh data
     # from the {data_path}/init directory
-
     path = opts.data_path + "init/"
+    puts "Rebuilding database from initialization directory: '#{path}'."
 
     # populate table `users`
     uparser = XLSParser.new(path+"user.xls", "user")
@@ -96,7 +95,7 @@ class Controller
     end
 
     # We now have all the init data and can exit gracefully.
-    puts "Loaded data from #{path}."
+    puts "Finished rebuilding database."
   end
 
   def self.disconnect!
@@ -124,10 +123,12 @@ class Controller
 
     # Delete the database file
     if File.exists?(opts.db)
+      puts "Found database file: '#{opts.db}'. Removing..."
       File.delete(opts.db)
     end
 
     # Now, we load the schema file and create the database
+    puts "Creating new database file at '#{opts.db}' from schema file '#{opts.schema}'."
     res = system("sqlite3 #{opts.db} < #{opts.schema}")
 
     if not res
