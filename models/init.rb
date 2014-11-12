@@ -1,79 +1,30 @@
 require "data_mapper"
 require "bcrypt"
 
-# TODO : To be safe, this entire script should be wrapped
-# in a class and configurable via config.yaml. Specifically
-# the database parameters.
-dataPath = "data/init/"
-url = "sqlite://#{Dir.pwd}/db/drug.db"
-DataMapper.setup :default, url
+CONFIG = YAML.load(File.open("config.yaml"))
 
-# TODO: Is there a better way to do this?
-require_relative "user"
-require_relative "manager"
-require_relative "health_center"
-require_relative "drug"
-require_relative "cpt"
-require_relative "correction"
-require_relative "count"
-require_relative "purchase"
-require_relative "sale"
+def setup(cfg)
 
-# TODO : This is temporary for development purposes ONLY
-# Ideally, this should listen to a flag in config.yaml
-# that says "are we in install mode?" and loads in the
-# data if true.
-require "./parsers/xlsparser"
-
-DataMapper.finalize
-# Upgrade tables to init constraints
-DataMapper.auto_upgrade!
-
-# Initial loading of data
-# We are in an uninitialized state.  Let's load all the data.
-
-if User.count == 0
-  sheet = "user"
-  xls = "user.xls"
-  puts "[INIT::WARNING] Table `user` is empty.  Initializing data from #{dataPath}#{xls}."
-  parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read(1).each do |row|
-    User.create(:id => row[0], :name => row[1], :email => row[2], :password => row[3], :created => Time.now)
+  # Sanitity check
+  if not cfg['db']
+    raise "ERROR: No database specified in config.yaml file.  Please specify a database."
   end
-  puts "User.count : #{User.count}"
+
+  # Get the database URI and connect
+  url = "sqlite://#{cfg['db']}"
+  DataMapper.setup :default, url
+  DataMapper.finalize
+  DataMapper.auto_upgrade!
+
+  require "./models/user"
+  require "./models/manager"
+  require "./models/health_center"
+  require "./models/drug"
+  require "./models/cpt"
+  require "./models/correction"
+  require "./models/count"
+  require "./models/purchase"
+  require "./models/sale"
 end
 
-if Manager.count == 0
-  sheet = "manager"
-  xls = "manager.xls"
-  puts "[INIT::WARNING] Table `manager` is empty.  Initializing data from #{dataPath}#{xls}."
-  parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read(1).each do |row|
-    Manager.create(:id => row[0], :name => row[1], :email=> row[2])
-  end
-  puts "Manager.count : #{Manager.count}"
-end
-
-if HealthCenter.count == 0
-  sheet = "health_center"
-  xls = "health_center.xls"
-  puts "[INIT::WARNING] Table `health_center` is empty.  Initializing data from #{dataPath}#{xls}."
-  parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read(1).each do |row|
-    manager = Manager.get(row[2])
-    HealthCenter.create(:id => row[0], :name => row[1], :manager => manager)
-  end
-  puts "HealthCenter.count : #{HealthCenter.count}"
-end
-
-if Drug.count == 0
-  sheet = "drug"
-  xls = "drug.xls"
-  puts "[INIT::WARNING] Table `drugs` is empty.  Initializing data from #{dataPath}#{xls}."
-  parser = XLSParser.new(dataPath + xls, sheet)
-  parser.read(1).each do |row|
-    drug = Drug.create(:name => row[1])
-    Cpt.create(:code => row[0], :drug => drug)
-  end
-  puts "Drug.count : #{Drug.count}"
-end
+setup CONFIG

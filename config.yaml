@@ -1,3 +1,5 @@
 ---
 # Data configuration options
-abs_data_path: "/home/jniles/code/drugdb/data/"
+data_path: "/home/jniles/code/drugdb/data/"
+db: "/home/jniles/code/drugdb/db/drug.db"
+schema: "/home/jniles/code/drugdb/db/schema"
