@@ -2,8 +2,6 @@ require 'ostruct'
 require 'date'
 
 class Corrections < Sinatra::Base
-
-  #
   # Correction Routes
   #   These routes power the corrections interface component
   #   of Drug Inventory.  They expose URLs to:
@@ -15,6 +13,7 @@ class Corrections < Sinatra::Base
   set :views, Dir.pwd + "/views"
 
   get '/corrections/center/?:center?' do
+    env['warden'].authenticate!
     data = OpenStruct.new
     data.center = HealthCenter.get(params[:center])
 
@@ -25,12 +24,13 @@ class Corrections < Sinatra::Base
     else
       data.corrections = Correction.all(:order => [:date.desc])
     end
-    
+
     p data
     erb :'corrections/table', :locals => { :data => data }
   end
 
   get '/corrections/new' do
+    env['warden'].authenticate!
     data = OpenStruct.new
     data.errors = {}
 
@@ -42,6 +42,7 @@ class Corrections < Sinatra::Base
   end
 
   get '/corrections/success' do
+    env['warden'].authenticate!
     data = OpenStruct.new
     data.corrections = Correction.all
     data.corrections.sort_by { |correction| correction[:date] }
@@ -49,6 +50,7 @@ class Corrections < Sinatra::Base
   end
 
   post '/corrections/submit' do
+    env['warden'].authenticate!
     # Note: There are two ways of sharing POST data between
     # sinatra routes. I am opting for using session, it seems
     # cleaner.
@@ -86,5 +88,4 @@ class Corrections < Sinatra::Base
       erb :'corrections/form', :locals => { :data => data }
     end
   end
-
 end

@@ -1,4 +1,4 @@
-# /parser/controller.rb
+# /parsers/controller.rb
 #
 # This module is responsible for higher-level db parsing
 # functions, such a building the initial install or
