@@ -50,26 +50,27 @@ class Corrections < Sinatra::Base
   end
 
   post '/corrections/submit' do
-    env['warden'].authenticate!
     # Note: There are two ways of sharing POST data between
     # sinatra routes. I am opting for using session, it seems
     # cleaner.
     # href: http://www.sinatrarb.com/intro.html#Browser%20Redirect
+
+    env['warden'].authenticate!
     data = OpenStruct.new
     errors = {}
 
     # Was I given a valid health center?
     center = HealthCenter.get(params[:center])
-    p center
     errors[:center] = center.nil?
 
     # Was I given a valid drug?
     cpt = Cpt.get(params[:cpt])
-    p cpt
     errors[:cpt] = cpt.nil?
 
-    correction = Correction.create({ :cpt => cpt, :date => Date.parse(params[:date]), :count => params[:count], :health_center => center })
-    p correction
+    # TODO Try-catch-except
+    date = Date.parse(params[:date])
+
+    correction = Correction.create({ :cpt => cpt, :date => date, :count => params[:count], :health_center => center })
 
     if correction.saved?
       redirect '/corrections/success'
@@ -84,7 +85,6 @@ class Corrections < Sinatra::Base
 
       # Expose errors to the view
       data.errors = errors
-      p data
       erb :'corrections/form', :locals => { :data => data }
     end
   end

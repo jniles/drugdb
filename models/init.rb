@@ -16,8 +16,6 @@ def setup(cfg)
   # Get the database URI and connect
   url = "sqlite://#{cfg['db']}"
   DataMapper.setup :default, url
-  DataMapper.finalize
-  DataMapper.auto_upgrade!
 
   require "./models/user"
   require "./models/manager"
@@ -28,6 +26,9 @@ def setup(cfg)
   require "./models/count"
   require "./models/purchase"
   require "./models/sale"
+
+  DataMapper.finalize
+  DataMapper.auto_upgrade!
 end
 
 setup CONFIG

@@ -1,26 +1,29 @@
 <div class="row" style="margin-top:1em;">
-  <div class="large-offset-1 large-10 columns">
+  <div class="large-12 columns">
     <div class="panel callout radius">
       <strong><i class="fi fi-page"></i> Success!</strong> You added a new correction to the database!
     </div>
-    <table class="table">
+    <table>
       <thead>
-        <tr colspan="4">
-          <th>All Health Centers</th>
+        <tr class="blue">
+          <th colspan="5">All Health Centers</th>
         </tr>
         <tr>
-          <th>CPT</th>
+          <th>Health Center</th>
+          <th>CPT Code</th>
           <th>Drug</th>
           <th>Count</th>
           <th>Date</th>
+        </tr>
       </thead>
       <tbody>
         <% data.corrections.each do |correction| %>
           <tr>
-            <td><%= correction[:cpt] %></td>
-            <td><%= correction[:name] %></td>
-            <td><%= correction[:count] %></td>
-            <td><%= correction[:date] %></td>
+            <td><%= correction.health_center.name %></td>
+            <td><%= correction.cpt_code %></td>
+            <td><%= correction.cpt.drug.name %></td>
+            <td><%= correction.count %></td>
+            <td><%= correction.date.strftime('%b %d, %Y') %></td>
           </tr>
         <% end %>
       </tbody>

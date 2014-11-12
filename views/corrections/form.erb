@@ -2,13 +2,12 @@
   <div class="large-offset-2 large-8 columns">
     <form action="/corrections/submit" method="post" name="corrections">
       <fieldset>
-        <legend>Correction Form</legend>
+        <legend>Inventory Correction Form</legend>
         <div class="row">
 
           <div class="large-12 columns <%= data.errors[:center] ? 'error' : '' %>">
             <label>Health Center
               <select name="center" required>
-                <option value="" disabled="disabled">Select a Health Center</option>
                 <% data.centers.each do |center| %>
                   <option value="<%= center[:id] %>"><%= center[:name] %></option>
                 <% end %>
@@ -22,7 +21,6 @@
           <div class="large-12 columns <%= data.errors[:cpt] ? 'error' : '' %>">
             <label>Stock Item
               <select name="cpt" required>
-                <option value="" disabled="disabled">Select a Drug</option>
                 <% data.drugs.each do |drug| %>
                   <option value="<%= drug[:code] %>"><%= drug[:code] %></option>
                 <% end %>
