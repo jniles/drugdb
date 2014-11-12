@@ -22,12 +22,13 @@ require './parsers/inventory'
 require './parsers/sale'
 require './parsers/purchase'
 
-# models
-require './models/init'
 
 # globals
 VERSION = "0.1.0"
 CONFIG = YAML.load(File.open("config.yaml"))
+
+# models
+require './models/init'
 
 # OptParse
 #   Allows command line control of the parsing scripts.
