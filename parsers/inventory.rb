@@ -74,7 +74,7 @@ class InventoryCountsParser
     # Count record.
     content.each do |row|
 
-      # FIXME : This is ultra safe.  Why?  Because XLSX parsing is
+      # FIXME : This is ultra safe at the cost of efficiency.  Why?  Because XLSX parsing is
       # difficult and the RubyXL gem often includes random arrays of
       # nil values.  So, we check whether the array exist, is empty,
       # or only contains nil values.

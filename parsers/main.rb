@@ -5,19 +5,30 @@
 # This is the main command line runner for
 # all parsers inserting data into the drug.db.
 
+# TODO
+#  The following features are sorely missing, to add
+#  dependency management and crash managment to the
+#  application:
+#   --log=FILE        Output verbose log to a file.
+
 require 'optparse'
 require 'optparse/date'
 require 'ostruct'
 require 'yaml'
 
 # parsers
+require './parsers/controller'
 require './parsers/inventory'
 require './parsers/sale'
 require './parsers/purchase'
 
+
 # globals
-VERSION = 0.1
+VERSION = "0.1.0"
 CONFIG = YAML.load(File.open("config.yaml"))
+
+# models
+require './models/init'
 
 # OptParse
 #   Allows command line control of the parsing scripts.
@@ -25,8 +36,14 @@ class OptParse
 
   def self.parse(args)
     options = OpenStruct.new
+
+    # Assign config.yaml variables to struct
+    options.data_path = CONFIG['data_path']
+    options.schema = CONFIG['schema']
+    options.db = CONFIG['db']
+
+    # default struct values
     options.verbose = false
-    options.data_path = CONFIG['abs_data_path']
     options.centers = []
     options.all_centers = true
 
@@ -44,14 +61,12 @@ class OptParse
         options.date = date
       end
 
-      opts.on("--health-center x,y,z", Array, "Import only the given health center(s)") do |centers|
-        options.all_centers = false
-        options.centers << centers
+      opts.on("--install", "Build the database before running parsing scripts") do
+        options.install = true
       end
 
-      opts.on("-o", "--out [FILE]", "Log output to file") do |f|
-        puts "Not yet implimented."
-        exit
+      opts.on("--rebuild", "Rebuilds the data in the drug inventory database.") do
+        options.rebuild = true
       end
 
       opts.separator ""
@@ -73,16 +88,39 @@ class OptParse
   end
 end
 
+# Let's be semantic like in C or Python!
+def main(options)
+  puts "Running drug inventory parser."
+
+  if options.install
+    Controller.install(options)
+  end
+
+  if options.rebuild
+    Controller.rebuild(options)
+  end
+
+  # escape if no date specified
+  if not options.date
+    return
+  end
+
+  # Parse Inventory Counts
+  inventory = InventoryCountsParser.new(options)
+  inventory.parse()
+
+  # Parse Sales
+  sales = SaleParser.new(options)
+  sales.parse()
+
+  # Parse Purchases
+  purchases = PurchaseParser.new(options)
+  purchases.parse()
+
+  puts "Closing drug inventory parser."
+end
+
+# Parse the call arguments
 options = OptParse.parse(ARGV)
-
-# Parse Inventory Counts
-iparser = InventoryCountsParser.new(options)
-iparser.parse()
-
-# Parse Sales
-sparser = SaleParser.new(options)
-sparser.parse()
-
-# Parse Purchases
-pparser = PurchaseParser.new(options)
-pparser.parse()
+# Run this script
+main options

@@ -1,0 +1,39 @@
+<div class="row" style="margin-top:1em">
+  <table>
+    <thead>
+      <tr class="blue">
+        <th colspan="5">
+          <% if data.center %>
+            Health Center: <%= data.center.name %></th>
+          <% else %>
+            All Health Centers
+          <% end %>
+        </th>
+      </tr>
+      <tr>
+        <th>Health Center</th>
+        <th>CPT Code</th>
+        <th>Drug</th>
+        <th>Count</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if data.corrections.length > 0 %>
+        <% data.corrections.each do |correction| %>
+          <tr>
+            <td><%= correction.health_center.name %></td>
+            <td><%= correction.cpt_code %></td>
+            <td><%= correction.cpt.drug.name %></td>
+            <td><%= correction.count %></td>
+            <td><%= correction.date.strftime('%b %d, %Y') %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="5"><i class="fi fi-info"></i> There do not seem to be any corrections recorded in the database.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

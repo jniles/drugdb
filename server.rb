@@ -6,14 +6,24 @@ require 'sinatra/content_for'
 require 'active_record'
 require 'chartkick'
 require 'warden'
+require 'date'
+require 'yaml'
+
+# NOTE 
+# Because of the way Ruby works,
+# CONFIG is global thorughout the 
+# application
+CONFIG = YAML.load(File.open("config.yaml"))
 
 # init models
 require './models/init'
 
-# routes 
+# routes
 require './routes/auth'
+require './routes/home'
 require './routes/email'
 require './routes/account'
+require './routes/corrections'
 require './routes/display' #for charts
 
 module SST
@@ -22,15 +32,17 @@ module SST
 
     # middleware
     use Auth
+    use Home
     use Emails
     use Accounts
+    use Corrections
     use DrugDisplay
     #use Graphs # TODO : impliment this
     #use Display
 
     get '/' do
       env['warden'].authenticate!
-      erb :main
+      redirect "/home"
     end
   end
 end

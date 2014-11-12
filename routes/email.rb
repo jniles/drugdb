@@ -6,6 +6,14 @@ BLUETEMPLATE = "email/blue.erb"
 ORANGETEMPLATE = "email/orange.erb"
 REDTEMPLATE = "email/red.erb"
 
+#
+# NOTE: This is for demonstration purposes only.  We may want
+# to allow archived access to emails directly from the application,
+# but that is not this route. This route is simply to demonstrate
+# rendering of an email template.  Ideally, this would be called
+# from the drug script.
+#
+
 class Emails < Sinatra::Base
   #
   # Email Routes

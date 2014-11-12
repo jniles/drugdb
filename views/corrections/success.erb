@@ -1,0 +1,32 @@
+<div class="row" style="margin-top:1em;">
+  <div class="large-12 columns">
+    <div class="panel callout radius">
+      <strong><i class="fi fi-page"></i> Success!</strong> You added a new correction to the database!
+    </div>
+    <table>
+      <thead>
+        <tr class="blue">
+          <th colspan="5">All Health Centers</th>
+        </tr>
+        <tr>
+          <th>Health Center</th>
+          <th>CPT Code</th>
+          <th>Drug</th>
+          <th>Count</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.corrections.each do |correction| %>
+          <tr>
+            <td><%= correction.health_center.name %></td>
+            <td><%= correction.cpt_code %></td>
+            <td><%= correction.cpt.drug.name %></td>
+            <td><%= correction.count %></td>
+            <td><%= correction.date.strftime('%b %d, %Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

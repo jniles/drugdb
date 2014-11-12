@@ -1,0 +1,62 @@
+<div class="row" style="margin-top:1em;">
+  <div class="large-offset-2 large-8 columns">
+    <form action="/corrections/submit" method="post" name="corrections">
+      <fieldset>
+        <legend>Inventory Correction Form</legend>
+        <div class="row">
+
+          <div class="large-12 columns <%= data.errors[:center] ? 'error' : '' %>">
+            <label>Health Center
+              <select name="center" required>
+                <% data.centers.each do |center| %>
+                  <option value="<%= center[:id] %>"><%= center[:name] %></option>
+                <% end %>
+              </select>
+            </label>
+            <% if data.errors[:center] %>
+              <small class="error">Please select a health center from this list.</small>
+            <% end %>
+          </div>
+
+          <div class="large-12 columns <%= data.errors[:cpt] ? 'error' : '' %>">
+            <label>Stock Item
+              <select name="cpt" required>
+                <% data.drugs.each do |drug| %>
+                  <option value="<%= drug[:code] %>"><%= drug[:code] %></option>
+                <% end %>
+              </select>
+            </label>
+            <% if data.errors[:cpt] %>
+              <small class="error">Please select a CPT from this list.</small>
+            <% end %>
+          </div>
+
+          <div class="large-12 columns <%= data.errors[:date] ? 'error' : ' ' %>">
+            <label>Date
+              <input type="date" name="date" placeholder="YYYY-MM-DD" required>
+            </label>
+            <% if data.errors[:date] %>
+              <small class="error">This date doesn't look right.  Are you sure this is correct?</small>
+            <% end %>
+          </div>
+
+          <div class="large-12 columns <%= data.errors[:count] ? 'error' : ' ' %>">
+            <label>Count
+              <input type="number" name="count" placeholder="e.g. 50 or -23" required>
+            </label>
+            <% if data.errors[:count] %>
+              <small class="error">This count doesn't look right.  Are you sure this is correct?</small>
+            <% end %>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <button class="button tiny" type="submit">Submit</button>
+            <button class="button tiny" type="reset">Reset</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

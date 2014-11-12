@@ -1,18 +1,25 @@
 <!doctype html>
 <html>
 <head>
-  <title><%= @title %></title>
-  <!-- <script type="text/javascript" src="https://www.google.com/jsapi"></script> -->
+  <title>Drug Inventory</title>
+  <!--   <script type="text/javascript" src="https://www.google.com/jsapi"></script> -->
   <script type="text/javascript" src="/js/chartkick.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="/css/normalize.css" rel="stylesheet">
   <link href="/css/foundation.min.css" rel="stylesheet">
   <link href="/css/fonts/foundation-icons.css" rel="stylesheet">
-  <link href="/css/layout.css" rel="stylesheet">
+  <!-- <link href="/css/layout.css" rel="stylesheet"> -->
+  <script src="/js/foundation.min.js"></script>
+  <style>
+    /* Why must I do this hack? */
+    table { width:100%;}
+    .blue { background-color:#003f82; color: #fff;}
+    .blue th { color: #fff;}
+  </style>
 </head>
 <body>
   <div class="contain-to-grid">
-    <nav class="top-bar" data-topbar role="navigation">
+    <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
 
       <ul class="title-area">
         <li class="name">
@@ -25,6 +32,13 @@
         <ul class="right">
           <li><a href="/home">Home</a></li>
           <li><a href="/drugs">Drugs</a></li>
+          <li class="has-dropdown">
+            <a href="#">Corrections</a>
+            <ul class="dropdown">
+              <li><a href="/corrections/center"><i class="fi fi-list"></i> View All</a></li>
+              <li><a href="/corrections/new"><i class="fi fi-plus"></i> Add a Correction</a></li>
+            </ul>
+          </li>
           <li><a href="/auth/logout">Logout</a></li>
         </ul>
       </section>
@@ -34,5 +48,6 @@
   <main class="row">
     <%= yield %>
   </main>
+  <script>$(document).foundation()</script>
 </body>
 </html>
