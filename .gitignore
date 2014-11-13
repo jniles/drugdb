@@ -4,6 +4,7 @@
 
 # omit sqlite3 database
 db/drug.db
+*.db
 
 # omit temp files (notepad)
 *~
