@@ -1,4 +1,4 @@
-CREATE TABLE "users" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "email" VARCHAR(75), "password" VARCHAR(60), "token" VARCHAR(100), "created" TIMESTAMP, "updated" TIMESTAMP, "active" INTEGER DEFAULT 0);
+CREATE TABLE "users" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "email" VARCHAR(75), "password" VARCHAR(60), "token" VARCHAR(100), "created" TIMESTAMP, "updated" TIMESTAMP, "active" INTEGER DEFAULT 0, "uuid_token" VARCHAR(36), "uuid_date" TIMESTAMP);
 CREATE TABLE "managers" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "email" VARCHAR(75));
 CREATE TABLE "health_centers" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "name" VARCHAR(75), "manager_id" INTEGER NOT NULL);
 CREATE INDEX "index_health_centers_manager" ON "health_centers" ("manager_id");

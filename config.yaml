@@ -3,3 +3,5 @@
 data_path: "/home/jniles/code/drugdb/data/"
 db: "/home/jniles/code/drugdb/db/drug.db"
 schema: "/home/jniles/code/drugdb/db/schema"
+sqlite: "/usr/bin/sqlite3"
+email_dir: "/home/jniles/code/drugdb/email/"
