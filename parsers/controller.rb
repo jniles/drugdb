@@ -143,4 +143,21 @@ class Controller
     # Finally, build the basic initialization data
     self.rebuild(opts)
   end
+
+  def self.rebuild_drugs(opts)
+    path = opts.data_path + "init/"
+
+    # populate tables `cpt` and `drugs` with new values
+    dparser = XLSParser.new(path+"drug.xls", "drug")
+    n = Cpt.all.length
+    dparser.read(1).each do |row|
+      begin
+        drug = Drug.create(:name => row[1])
+        Cpt.create(:code => row[0], :drug => drug)
+      rescue
+      end
+    end
+    m = Cpt.all.length
+    puts "Added #{m - n} drug(s) to the database."
+  end
 end

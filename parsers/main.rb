@@ -70,6 +70,10 @@ class OptParse
         options.rebuild = true
       end
 
+      opts.on("--rebuild-drugs", "Rebuilds just the cpt code table") do 
+        options.rebuild_drugs = true;
+      end
+
       opts.separator ""
       opts.separator "Common options:"
 
@@ -99,6 +103,10 @@ def main(options)
 
   if options.rebuild
     Controller.rebuild(options)
+  end
+
+  if options.rebuild_drugs
+    Controller.rebuild_drugs(options)
   end
 
   # escape if no date specified
