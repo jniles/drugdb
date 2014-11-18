@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="large-offset-2 large-8 columns"
+  <div class="large-offset-2 large-8 columns">
     <form action="/account/change/<%= data[:uuid] %>" method="post">
       <fieldset>
         <legend>Password Reset</legend>
@@ -12,7 +12,7 @@
                 <span class="prefix button"><i class="fi-lock"></i></span>
               </div>
               <div class="small-10 columns">
-                <input id="pw1" type="password" name="pw1" autofocus>
+                <input id="pw1" type="password" name="password" autofocus>
               </div>
             </div>
           </div>
@@ -26,7 +26,7 @@
                 <span class="button prefix"><i class="fi-lock"></i></span>
               </div>
               <div class="small-10 columns">
-                <input id="pw2" type="password" name="pw2" autofocus>
+                <input id="pw2" type="password" name="pw2">
               </div>
             </div>
           </div>

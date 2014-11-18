@@ -52,10 +52,9 @@ class Accounts < Sinatra::Base
       templateString = File.read(PASSWORDEMAIL)
       data = { :url => url, :user => user.name, :email => params[:email] }
       template = ERB.new(templateString).result(binding)
-      # FIXME
-      p new_uuid
 
       # send the email
+      # FIXME
 =begin
       Pony.mail({
         :from => "admin@drugdb",
@@ -79,8 +78,6 @@ class Accounts < Sinatra::Base
   get '/account/change/:uuid' do
     user = User.first(:uuid_token => params[:uuid])
     if not user.nil?
-    # TODO: Find out how to subtract dates so we can say "UUID less than a week old" or whatever
-    # cool, so yours is valid. Display change form...we make it a template so it has the correct links
       @uuid = params[:uuid]
       erb :"account/reset.form", :locals => { :data => { uuid: @uuid } }
     else
@@ -90,14 +87,13 @@ class Accounts < Sinatra::Base
   end
 
   post '/account/change/:uuid' do
-    user = User.first(:uuid_token => params[:uuid]) #check again just in case
+    user = User.first(:uuid_token => params[:uuid])
     if not user.nil?
-      user.update({:password => params[:new_password], :uuid_token => nil, :uuid_date => nil}) #wipe old tokens
-      redirect "/"
+      # wipe old tokens and set passwd
+      user.update({:password => params[:password], :uuid_token => nil, :uuid_date => nil})
+      erb :"account/change.success", :locals => { :data => { email: user.email } }
     else
-      "The UUID you have provided is no longer valid. Please try to reset your password again <a href='/account/reset/'>using our automated system.</a>"
+      erb :"account/change.failure", :locals => { :data => { email: params[:uuid] } }
     end
-    # we do the password matching check in JS, not on the server.
-    # now take the new password and shove it in to user
   end
 end
