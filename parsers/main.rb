@@ -41,6 +41,7 @@ class OptParse
     options.data_path = CONFIG['data_path']
     options.schema = CONFIG['schema']
     options.db = CONFIG['db']
+    options.sqlite = CONFIG['sqlite']
 
     # default struct values
     options.verbose = false

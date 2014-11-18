@@ -129,10 +129,12 @@ class Controller
 
     # Now, we load the schema file and create the database
     puts "Creating new database file at '#{opts.db}' from schema file '#{opts.schema}'."
-    res = system("sqlite3 #{opts.db} < #{opts.schema}")
+
+    sqlite = opts.sqlite || "sqlite3"
+    res = system("#{sqlite} #{opts.db} < #{opts.schema}")
 
     if not res
-      raise "An error occurred during system creation of the database."
+      raise "An error occurred during system creation of the database.  Do you have sqlite3 in your system path?"
     end
 
     # We can reconnect the database now

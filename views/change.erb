@@ -1,49 +1,36 @@
-<!doctype html>
-<html>
-  <head>
-    <title>DrugDB: The Drug Management Database</title>
+<div class="row" style="margin-top:12em;">
+  <div class="large-offset-4 large-4 columns">
+    <form id="chpass_form" action="/auth/<%= @uuid =%>" method="post" name="user">
+      <fieldset>
+        <legend>Change Password</legend>
 
-    <link href="css/normalize.css" rel="stylesheet">
-    <link href="css/foundation.min.css" rel="stylesheet">
-    <link href="css/fonts/foundation-icons.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="row" style="margin-top:12em;">
-      <div class="large-offset-4 large-4 columns">
-	      <form id="chpass_form" action="/auth/<%= @uuid =%>" method="post" name="user">
-          <fieldset>
-            <legend>Change Password</legend>
-
-            <div class="row">
-              <div class="large-12 columns">
-                <div class="row collapse">
-                  <div class="small-2 columns">
-                    <span class="prefix"><i class="fi-torso"></i></span>
-                  </div>
-                  <div class="small-10 columns">
-                    <input type="password" placeholder="new_password" name="new_password" id="new_password">
-                  </div>
-                </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="fi-torso"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <input type="password" placeholder="new_password" name="new_password" id="new_password">
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="row">
-              <div class="large-12 columns">
-                <div class="row collapse">
-                  <div class="small-2 columns">
-                    <span class="prefix"><i class="fi-key"></i></span>
-                  </div>
-                  <div class="small-10 columns">
-                    <input type="password" name="password_confirm" placeholder="password_confirm" id="password_confirm">
-                  </div>
-                </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="row collapse">
+              <div class="small-2 columns">
+                <span class="prefix"><i class="fi-key"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <input type="password" name="password_confirm" placeholder="password_confirm" id="password_confirm">
               </div>
             </div>
+          </div>
+        </div>
 
-          </fieldset>
-        </form>
-      </div>
-    </div>
-    <script type="text/javascript" src="js/change_pass.js"></script>
-  </body>
-</html>
+      </fieldset>
+    </form>
+  </div>
+</div>

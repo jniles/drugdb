@@ -9,12 +9,6 @@ require 'warden'
 require 'date'
 require 'yaml'
 
-# NOTE 
-# Because of the way Ruby works,
-# CONFIG is global thorughout the 
-# application
-CONFIG = YAML.load(File.open("config.yaml"))
-
 # init models
 require './models/init'
 

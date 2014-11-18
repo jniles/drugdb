@@ -4,7 +4,7 @@ require "bcrypt"
 # Require configuration file.
 # FIXME : This needs to be global for both the cmd line
 # context (./parsers/main.rb) and the server context (./server.rb)
-CONFIG = YAML.load(File.open("config.yaml"))
+#CONFIG = YAML.load(File.open("config.yaml"))
 
 def setup(cfg)
 
