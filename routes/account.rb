@@ -52,8 +52,11 @@ class Accounts < Sinatra::Base
       templateString = File.read(PASSWORDEMAIL)
       data = { :url => url, :user => user.name, :email => params[:email] }
       template = ERB.new(templateString).result(binding)
+      # FIXME
+      p new_uuid
 
       # send the email
+=begin
       Pony.mail({
         :from => "admin@drugdb",
         :to => params[:email],
@@ -67,6 +70,7 @@ class Accounts < Sinatra::Base
           :domain => "10.10.11.15"
         }
       })
+=end
 
       erb :"account/reset.confirmation", :locals => { :data => data }
     end
@@ -81,7 +85,7 @@ class Accounts < Sinatra::Base
       erb :"account/reset.form", :locals => { :data => { uuid: @uuid } }
     else
       url = "http://localhost:#{settings.port}/account/reset"
-      erb :"account.reset.expired", :locals => { :data => { url: url } }
+      erb :"account/reset.expired", :locals => { :data => { url: url } }
     end
   end
 

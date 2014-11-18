@@ -1,17 +1,52 @@
 <div class="row">
   <div class="large-offset-2 large-8 columns"
-    <form action="/account/reset" method="post">
+    <form action="/account/change/<%= data[:uuid] %>" method="post">
       <fieldset>
         <legend>Password Reset</legend>
+
         <div class="row">
           <div class="large-12 columns">
-            <label>Enter your email address
-              <input type="email" name="email" placeholder="e.g. jane.doe@gmail.com" autofocus>
-            </label>
+            <div class="row collapse">
+              <label>Type a new Password</label>
+              <div class="small-2 columns">
+                <span class="prefix"><i class="fi-lock"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <input id="pw1" type="password" name="pw1" autofocus>
+              </div>
+            </div>
           </div>
         </div>
-        <input class="button tiny" type="submit" value="Submit">
+
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="row collapse">
+              <label>Type a new Password</label>
+              <div class="small-2 columns">
+                <span class="prefix"><i class="fi-lock"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <input id="pw2" type="password" name="pw2" autofocus>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <input class="button tiny" type="submit" value="Submit" disabled="disabled">
       </fieldset>
     </form>
   </div>
 </div>
+<script>
+  // a small js script to only allow submission once the passwords
+  // match.
+
+  var passwd1 = $("#pw1"),
+      passwd2 = $("#pw2");
+
+  $("input[type=password]").keyup(function () {
+    // disabled if not valid
+    var valid = passwd1.val() === passwd2.val() && passwd1.val() !== "";
+    $("input[type=submit]").prop('disabled', !valid);
+  });
+</script>

@@ -1,4 +1,4 @@
-<div class="row" style="margin-top:12em;">
+<div class="row pad-top">
   <div class="large-offset-4 large-4 columns">
     <h4>Reset Your Password</h4>
     <form action="/account/reset" method="post" name="reset">
@@ -7,7 +7,7 @@
         <div class="row">
           <div class="large-12 columns error">
             <label>Please enter your email address
-              <input type="email" name="email" placeholder="user@mail.org">
+              <input type="email" name="email" placeholder="user@mail.org" autofocus>
             </label>
             <small class="error">I cannot find a record for <i><%= error %></i>.  Please try again.</small>
           </div>
@@ -16,7 +16,7 @@
         <div class="row">
           <div class="large-12 columns">
             <label>Please enter your email address
-              <input type="email" name="email" placeholder="user@mail.org">
+              <input type="email" name="email" placeholder="user@mail.org" autofocus>
             </label>
           </div>
         </div>
