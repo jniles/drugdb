@@ -1,31 +1,37 @@
 <div class="container">
-
-	<table>
-		<thead>
+	<p>Select Health Center:
+		<select id="hc_select">
+	<% @hc_data.each_with_index do |center, index| %>
+			<option <% if index == 1 %>selected<%end%>value="<%= center[:center_name] %>"><%= center[:center_name] %></option>
+		<%end%>
+	</select>
+	</p>
+	<% for center in @hc_data do %>
+		<table class="hidden" id="<%=center[:center_name]%>">
+			<thead>
+				<tr>
+					<td>All Drugs</td>
+					<td><a class="zero_count_hide">Show/Hide Zero Counts</a></td>
+				</tr>
+			</thead>
 			<tr>
-				<td>All Drugs</td>
-				<td><a id="zero_count_hide">Show/Hide Zero Counts</a></td>
-				<td>Select Health Center</td>
+				<th>CPT Code</th>
+				<th>Name</th>
+				<th>Vendor</th>
+				<th>Count</th>
+				<th>Consumption</th>
 			</tr>
-		</thead>
-		<tr>
-			<th>CPT Code</th>
-			<th>Name</th>
-			<th>Vendor</th>
-      <th>Count</th>
-      <th>Consumption</th>
-    </tr>
-		<% for cpt in @drug_data %>
-			<tr <% if cpt[:current_count] == 0 then %> class="zero-count" <% end %>>
-        <td><%= cpt[:code] %></td>
-				<td><%= cpt[:name] %></td>
-				<td><%= cpt[:vendor] %></td>
-				<td><%= cpt[:current_count] %></td>
-				<td><a>View</a></td>
-      </tr>
-    <% end %>
-  </table>
-
+			<% for cpt in center[:drugs] %>
+				<tr <% if cpt[:current_count] == 0 then %> class="zero-count" <% end %>>
+					<td><%= cpt[:code] %></td>
+					<td><%= cpt[:name] %></td>
+					<td><%= cpt[:vendor] %></td>
+					<td><%= cpt[:current_count] %></td>
+					<td><a id="view_chart_<%= center[:center_name]%>_<%= cpt[:code]%>">View</a></td>
+				</tr>
+			<% end %>
+		</table>
+	<%end%>
   <%# TODO: pagination, use will_paginate gem %>
 </div><!-- end of "container" -->
 <script type="text/javascript" src="/js/drugdisplay.js"></script>
