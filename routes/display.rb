@@ -1,6 +1,5 @@
 require 'json'
 class DrugDisplay < Sinatra::Base
-
 	set :views, Dir.pwd + "/views"
 
 	get '/drugs' do
@@ -43,12 +42,13 @@ class DrugDisplay < Sinatra::Base
 		erb :test
   end
 
-	get '/data/:health_center/:cpt'
+	get '/data/:health_center/:cpt' do
+		env['warden'].authenticate! #HIPAA means we can't just let this get through...
 		health_center = HealthCenter.all(:name => params[:health_center])
 		cpt = Cpt.all(:code => params[:cpt])
 		all_sales = Sale.all(:cpt => cpt, :health_center => health_center, :order => [:date.asc]).to_a #get all sales
 		#now make stuff
-		drug_data = {'count':all_sales.map { |x| x.count}, 'date' : all_sales.map {|x| x.date}}
+		drug_data = {'count'=>all_sales.map { |x| x.count}, 'date'=>all_sales.map {|x| x.date}}
 		content_type :json
 		drug_data.to_json
 	end
