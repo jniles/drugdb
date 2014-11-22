@@ -7,7 +7,7 @@
 	</select>
 	</p>
 	<% for center in @hc_data do %>
-		<table class="hidden" id="<%=center[:center_name]%>">
+		<table class="hidden hc_table" id="<%=center[:center_name]%>">
 			<thead>
 				<tr>
 					<td>All Drugs</td>
@@ -22,16 +22,23 @@
 				<th>Consumption</th>
 			</tr>
 			<% for cpt in center[:drugs] %>
-				<tr <% if cpt[:current_count] == 0 then %> class="zero-count" <% end %>>
+				<tr <% if cpt[:current_count] == 0 then %> class="zero-count hidden" <% end %>>
 					<td><%= cpt[:code] %></td>
-					<td><%= cpt[:name] %></td>
+					<td class="drug_name"><%= cpt[:name] %></td>
 					<td><%= cpt[:vendor] %></td>
 					<td><%= cpt[:current_count] %></td>
-					<td><a id="view_chart_<%= center[:center_name]%>_<%= cpt[:code]%>">View</a></td>
+					<td><a class="chart_link" id="sales_chart_<%= center[:center_name]%>_<%= cpt[:code]%>">View</a></td>
 				</tr>
 			<% end %>
 		</table>
 	<%end%>
   <%# TODO: pagination, use will_paginate gem %>
 </div><!-- end of "container" -->
+<script>
+var count_data = new Object();
+<% for center in @hc_data do %>
+	count_data.<%= center[:center_name] %> = <%= center[:counts] %>; 
+<%end%>
+</script>
+<script type="text/javascript" src="js/highcharts.js"></script>
 <script type="text/javascript" src="/js/drugdisplay.js"></script>
