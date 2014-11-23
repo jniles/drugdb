@@ -45,15 +45,20 @@ function draw_graph(cpt,hc_id,chart_type,drug_name){
 			x: -20
 		},
 		xAxis:{
-			title:'Date',
+			title:{
+				text: 'Dates'
+			},
 			categories:chart_data['date']
 		},
 		yAxis:{
-			title:'Sales'
+			title:{
+				text:'Sales'
+			}
 		},
 		series:[{
-			name:'Sales',
-			data:chart_data['count']
+			name:"Sales",
+			data:chart_data['count'],
+			showInLegend:false
 			}]
 		
 	})

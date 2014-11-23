@@ -34,11 +34,5 @@
 	<%end%>
   <%# TODO: pagination, use will_paginate gem %>
 </div><!-- end of "container" -->
-<script>
-var count_data = new Object();
-<% for center in @hc_data do %>
-	count_data.<%= center[:center_name] %> = <%= center[:counts] %>; 
-<%end%>
-</script>
 <script type="text/javascript" src="js/highcharts.js"></script>
 <script type="text/javascript" src="/js/drugdisplay.js"></script>
