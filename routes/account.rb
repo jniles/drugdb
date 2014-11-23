@@ -7,10 +7,6 @@ require 'iconv' unless String.method_defined?(:encode)
 
 PASSWORDEMAIL = File.join(CONFIG['email_dir'], 'password.reset.erb')
 
-# FIXME
-#   This module is a duplication of Vinushka's work, before he pushed his
-#   email work.  It should all be removed, once we know all the concepts
-#   have been covered.
 class Accounts < Sinatra::Base
 
   #

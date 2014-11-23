@@ -1,4 +1,5 @@
 require 'json'
+
 class DrugDisplay < Sinatra::Base
 	set :views, Dir.pwd + "/views"
 

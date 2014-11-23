@@ -1,7 +1,23 @@
+# data configuration options
+#
+#
 ---
-# Data configuration options
 data_path: "/home/jniles/code/drugdb/data/"
 db: "/home/jniles/code/drugdb/db/drug.db"
 schema: "/home/jniles/code/drugdb/db/schema"
-sqlite: "/usr/bin/sqlite3"
 email_dir: "/home/jniles/code/drugdb/email/"
+
+# parameters for consumption projections
+
+# hindsight - number of days of prior consumption
+# data to take into account to project remaining
+# time.
+hindsight: 90
+
+# minimum - sets the minimum number of days
+# for drug consumption.  If the supply of drugs
+# will not last past this minimum, the email system
+# will throw a warning
+minimum: 30
+
+

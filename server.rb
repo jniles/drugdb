@@ -18,7 +18,6 @@ require './routes/home'
 require './routes/email'
 require './routes/account'
 require './routes/corrections'
-require './routes/par'
 require './routes/display' #for charts
 
 module SST
@@ -31,9 +30,7 @@ module SST
     use Emails
     use Accounts
     use Corrections
-    use Par
     use DrugDisplay
-    #use Graphs # TODO : impliment this
     #use Display
 
     get '/' do
