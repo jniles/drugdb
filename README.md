@@ -15,7 +15,8 @@ analytical tooling to verify the alert process.
 
 DrugInventory is designed to run on a Windows 2008 R2 server.  However,
 the application should be easily portable to any environment that supports
-Ruby, sqlite3, and a local mail server.
+Ruby, sqlite3, and a local mail server.  Some development work has been
+done on debian linux.
 
 For a full list of dependencies, see the Gemfile.  However, in brief,
 we are running:
