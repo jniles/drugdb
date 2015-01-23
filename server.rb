@@ -15,7 +15,6 @@ require './models/init'
 # routes
 require './routes/auth'
 require './routes/home'
-require './routes/email'
 require './routes/users'
 require './routes/corrections'
 require './routes/display' #for charts
@@ -30,7 +29,6 @@ module SST
     # middleware
     use Auth
     use Home
-    use Emails
     use Users 
     use Corrections
     use DrugDisplay
