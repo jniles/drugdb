@@ -1,0 +1,21 @@
+/* Why must I do this hack? */
+table { width:100%;}
+.blue { background-color:#003f82; color: #fff;}
+.blue th, .blue td, .blue th a, .blue td a { color: #fff;}
+
+.alert-box h1,
+.alert-box h2,
+.alert-box h3,
+.alert-box h4,
+.alert-box h5,
+.alert-box a {
+  color: #fff;
+}
+
+.alert-box a {
+  font-weight: bold;
+}
+
+.row.pad-top {
+  margin-top: 4em;
+}

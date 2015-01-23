@@ -12,37 +12,37 @@
     </div>
   </div>
 
-	<% for center in @hc_data do %>
-		<table class="hidden hc_table" id="<%=center[:center_name]%>">
-			<thead>
-				<tr class="blue">
-          <th colspan="4">Drugs in <%= center[:center_name] %></th>
-          <th style="text-align: right;">
-            <a class="zero_count_hide" style="color:#fff">
-              <i class="fi fi-filter"></i> Show/Hide Zero Counts
-            </a>
-          </th>
-				</tr>
-			</thead>
-			<tr>
-				<th>CPT Code</th>
-				<th>Name</th>
-				<th>Vendor</th>
-				<th>Count</th>
-				<th>Consumption</th>
-			</tr>
-			<% for cpt in center[:drugs] %>
-				<tr <% if cpt[:current_count] == 0 then %> class="zero-count hidden" <% end %>>
-					<td><%= cpt[:code] %></td>
-					<td class="drug_name"><%= cpt[:name] %></td>
-					<td><%= cpt[:vendor] %></td>
-					<td><%= cpt[:current_count] %></td>
-					<td><a class="chart_link" id="sales_chart_<%= center[:center_name]%>_<%= cpt[:code]%>">View</a></td>
-				</tr>
-			<% end %>
-		</table>
-	<%end%>
+  <% for center in @hc_data do %>
+    <div class="row">
+      <table class="hidden hc_table" id="<%=center[:center_name]%>">
+        <thead>
+          <tr class="blue">
+            <th colspan="4">Drugs in <%= center[:center_name] %></th>
+            <th style="text-align: right;">
+              <a class="zero_count_hide" style="color:#fff">
+                <i class="fi fi-filter"></i> Show/Hide Zero Counts
+              </a>
+            </th>
+          </tr>
+        </thead>
+        <tr>
+          <th>CPT Code</th>
+          <th>Name</th>
+          <th>Vendor</th>
+          <th>Count</th>
+          <th>Consumption</th>
+        </tr>
+        <% for cpt in center[:drugs] %>
+          <tr <% if cpt[:current_count] == 0 then %> class="zero-count hidden" <% end %>>
+            <td><%= cpt[:code] %></td>
+            <td class="drug_name"><%= cpt[:name] %></td>
+            <td><%= cpt[:vendor] %></td>
+            <td><%= cpt[:current_count] %></td>
+            <td><a class="chart_link" id="sales_chart_<%= center[:center_name]%>_<%= cpt[:code]%>">View</a></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <%end%>
   <%# TODO: pagination, use will_paginate gem %>
-</div><!-- end of "container" -->
-<script type="text/javascript" src="js/highcharts.js"></script>
-<script type="text/javascript" src="/js/drugdisplay.js"></script>
+</div>

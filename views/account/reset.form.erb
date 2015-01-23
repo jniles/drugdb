@@ -9,7 +9,7 @@
             <div class="row collapse">
               <label>Enter a New Password</label>
               <div class="small-2 columns">
-                <span class="prefix button"><i class="fi-lock"></i></span>
+                <span class="prefix button secondary" disabled="disabled"><i class="fi-lock"></i></span>
               </div>
               <div class="small-10 columns">
                 <input id="pw1" type="password" name="password" autofocus>
@@ -23,7 +23,7 @@
             <div class="row collapse">
               <label>Retype Your New Password</label>
               <div class="small-2 columns">
-                <span class="button prefix"><i class="fi-lock"></i></span>
+                <span class="prefix button secondary" disabled="disabled"><i class="fi-lock"></i></span>
               </div>
               <div class="small-10 columns">
                 <input id="pw2" type="password" name="pw2">
@@ -37,24 +37,4 @@
     </form>
   </div>
 </div>
-<script>
-  // a small js script to only allow submission once the passwords
-  // match.
-
-  var passwd1 = $("#pw1"),
-      passwd2 = $("#pw2");
-
-  $("input[type=password]").keyup(function () {
-    // disabled if not valid
-    var valid = passwd1.val() === passwd2.val() && passwd1.val() !== "";
-    if (valid) {
-      $(".prefix").removeClass("secondary").addClass("success");
-      $("input[type=submit]").removeClass("warning").addClass("success");
-    } else {
-      $(".prefix").removeClass("success").addClass("secondary");
-      $("input[type=submit]").removeClass("success").addClass("warning");
-    }
-
-    $("input[type=submit]").prop('disabled', !valid);
-  });
-</script>
+<script>(function (window) { window.app.setupListeners(); })(window);</script>

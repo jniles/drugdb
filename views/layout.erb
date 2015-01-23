@@ -2,37 +2,19 @@
 <html>
 <head>
   <title>Drug Inventory</title>
-  <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
   <link href="/css/normalize.css" rel="stylesheet">
   <link href="/css/foundation.min.css" rel="stylesheet">
   <link href="/css/fonts/foundation-icons.css" rel="stylesheet">
-  <!-- <link href="/css/layout.css" rel="stylesheet"> -->
+  <link href="/css/app.css" rel="stylesheet">
+
   <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
   <script src="/js/foundation.min.js"></script>
-  <style>
-    /* Why must I do this hack? */
-    table { width:100%;}
-    .blue { background-color:#003f82; color: #fff;}
-    .blue th { color: #fff;}
+  <script>$(document).foundation()</script>
+  <script type="text/javascript" src="/js/highcharts.js"></script>
 
-    .alert-box h1,
-    .alert-box h2,
-    .alert-box h3,
-    .alert-box h4,
-    .alert-box h5,
-    .alert-box a {
-      color: #fff;
-    }
-
-    .alert-box a {
-      font-weight: bold;
-    }
-
-    .row.pad-top {
-      margin-top: 4em;
-    }
-
-  </style>
+  <!-- TODO: Concatenate these into a single app js file -->
+  <script type="text/javascript" src="/js/drugdisplay.js"></script>
+  <script type="text/javascript" src="/js/app.js"></script>
 </head>
 <body>
   <div class="contain-to-grid">
@@ -40,31 +22,41 @@
 
       <ul class="title-area">
         <li class="name">
-          <h1><a href="#">Drug Inventory</a></h1>
+          <h1><a href="/"><i class="fi fi-clipboard-notes"></i> Drug Inventory</a></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"></a></li>
       </ul>
 
       <section class="top-bar-section">
         <ul class="right">
-          <li><a href="/home">Home</a></li>
-          <li><a href="/drugs">Drugs</a></li>
+
+          <li>
+            <a href="/home"><i class="fi fi-home"></i> Home</a>
+          </li>
+
+          <li>
+            <a href="/drugs"><i class="fi fi-graph-trend"></i> Drugs</a>
+          </li>
+
           <li class="has-dropdown">
-            <a href="#">Corrections</a>
+            <a href="">Corrections</a>
             <ul class="dropdown">
               <li><a href="/corrections/center"><i class="fi fi-list"></i> View All</a></li>
               <li><a href="/corrections/new"><i class="fi fi-plus"></i> Add a Correction</a></li>
             </ul>
           </li>
-          <li><a href="/auth/logout">Logout</a></li>
+
+          <li>
+            <a href="/auth/logout"><i class="fi fi-eject"></i> Logout</a>
+          </li>
         </ul>
       </section>
 
     </nav>
   </div>
-  <main class="row">
+
+  <main>
     <%= yield %>
   </main>
-  <script>$(document).foundation()</script>
 </body>
 </html>
