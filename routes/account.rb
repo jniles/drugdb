@@ -4,7 +4,6 @@ require 'pony'
 # Invalid UTF-8 sequences in the email file(s) require this soln
 require 'iconv' unless String.method_defined?(:encode)
 
-
 PASSWORDEMAIL = File.join(CONFIG['email_dir'], 'password.reset.erb')
 
 class Accounts < Sinatra::Base
@@ -13,6 +12,9 @@ class Accounts < Sinatra::Base
   # Account Routes
   #
 
+  # We run into issues with non-valid UTF characters (actually, UTF-16),
+  # so we need to transform a string into UTF-8 from UTF-8 to ensure they
+  # are rendered and written properly.
   def escape(string)
     if String.method_defined?(:encode)
         string.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
@@ -49,23 +51,23 @@ class Accounts < Sinatra::Base
       data = { :url => url, :user => user.name, :email => params[:email] }
       template = ERB.new(templateString).result(binding)
 
-      # send the email
-      # FIXME
-=begin
-      Pony.mail({
-        :from => "admin@drugdb",
+      # compose the email
+      message_params= {
+        :from => CONFIG["email"]["sender"],
         :to => params[:email],
-        :subject => "Password Reset Request",
+        :subject => "[DRUGDB] Password Reset Request",
         :html_body => escape(template),
-        :via => :smtp,
-        :via_options => {
-          :address => "smtp.ncf.edu",
-          :port => "25",
-          :authentication => :plain,
-          :domain => "10.10.11.15"
-        }
-      })
-=end
+      }
+
+      # if we have specified the "via" methods for delivery,
+      # make sure to pass those to Pony
+      if CONFIG["email"]["via"]
+        message_params["via"] = CONFIG["email"]["via"]
+        message_params["via_options"] = CONFIG["email"]["via_options"]
+      end
+
+      # send the email
+      Pony.mail(message_params)
 
       erb :"account/reset.confirmation", :locals => { :data => data }
     end

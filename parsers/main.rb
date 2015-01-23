@@ -38,6 +38,7 @@ class OptParse
     options = OpenStruct.new
 
     # Assign config.yaml variables to struct
+    #
     options.data_path = CONFIG['data_path']
     options.schema = CONFIG['schema']
     options.db = CONFIG['db']
@@ -129,7 +130,12 @@ def main(options)
   puts "Closing drug inventory parser."
 end
 
-# Parse the call arguments
-options = OptParse.parse(ARGV)
-# Run this script
-main options
+# This is the equivalent of if __name__ == '__main__' in python
+if __FILE__ == $0
+
+  # Parse the call arguments
+  options = OptParse.parse(ARGV)
+
+  # Run this script
+  main options
+end

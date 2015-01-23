@@ -22,7 +22,9 @@ require './routes/display' #for charts
 
 module SST
   class App < Sinatra::Base
-    enable :sessions
+    enable :sessions, :logging
+
+    set :environment, :production
 
     # middleware
     use Auth

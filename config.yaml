@@ -5,7 +5,7 @@
 data_path: "/home/jniles/code/drugdb/data/"
 db: "/home/jniles/code/drugdb/db/drug.db"
 schema: "/home/jniles/code/drugdb/db/schema"
-email_dir: "/home/jniles/code/drugdb/email/"
+email_dir: "/home/jniles/code/drugdb/mail/"
 
 # parameters for consumption projections
 
@@ -20,4 +20,15 @@ hindsight: 90
 # will throw a warning
 minimum: 30
 
-
+# email configuration
+# Uncomment for the NCF network
+email: {
+  sender: "admin@drugdb"
+  #via: :smtp,
+  #via_options: {
+  #  address: "smtp.ncf.edu",
+  #  port: "25",
+  #  authentication: :plain,
+  #  domain: "10.10.11.15"
+  #}
+}
