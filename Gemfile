@@ -13,4 +13,3 @@ gem 'warden'
 gem 'data_mapper'
 gem 'dm-sqlite-adapter'
 gem 'bcrypt'
-gem 'whenever', :require => false
