@@ -26,30 +26,31 @@
         <li class="toggle-topbar menu-icon"><a href="#"></a></li>
       </ul>
 
-      <section class="top-bar-section">
-        <ul class="right">
+      <% if env['warden'].user %>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li>
+              <a href="/home"><i class="fi fi-home"></i> Home</a>
+            </li>
 
-          <li>
-            <a href="/home"><i class="fi fi-home"></i> Home</a>
-          </li>
+            <li>
+              <a href="/drugs"><i class="fi fi-graph-trend"></i> Drugs</a>
+            </li>
 
-          <li>
-            <a href="/drugs"><i class="fi fi-graph-trend"></i> Drugs</a>
-          </li>
+            <li class="has-dropdown">
+              <a href="">Corrections</a>
+              <ul class="dropdown">
+                <li><a href="/corrections/center"><i class="fi fi-list"></i> View All</a></li>
+                <li><a href="/corrections/new"><i class="fi fi-plus"></i> Add a Correction</a></li>
+              </ul>
+            </li>
 
-          <li class="has-dropdown">
-            <a href="">Corrections</a>
-            <ul class="dropdown">
-              <li><a href="/corrections/center"><i class="fi fi-list"></i> View All</a></li>
-              <li><a href="/corrections/new"><i class="fi fi-plus"></i> Add a Correction</a></li>
-            </ul>
-          </li>
-
-          <li>
-            <a href="/auth/logout"><i class="fi fi-eject"></i> Logout</a>
-          </li>
-        </ul>
-      </section>
+            <li>
+              <a href="/auth/logout"><i class="fi fi-eject"></i> Logout</a>
+            </li>
+          </ul>
+        </section>
+      <% end %>
 
     </nav>
   </div>

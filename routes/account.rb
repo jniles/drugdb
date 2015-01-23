@@ -31,6 +31,10 @@ class Accounts < Sinatra::Base
     erb :"account/reset", :locals => { :error => nil }
   end
 
+  get '/login' do 
+    erb :"login"
+  end
+
   post '/account/reset' do
     user = User.first(:email => params[:email]) #try to find the user
 
