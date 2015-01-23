@@ -16,7 +16,7 @@ require './models/init'
 require './routes/auth'
 require './routes/home'
 require './routes/email'
-require './routes/account'
+require './routes/users'
 require './routes/corrections'
 require './routes/display' #for charts
 
@@ -25,19 +25,23 @@ module SST
     enable :sessions, :logging
 
     set :environment, :production
+    set :views, Dir.pwd + "/views"
 
     # middleware
     use Auth
     use Home
     use Emails
-    use Accounts
+    use Users 
     use Corrections
     use DrugDisplay
-    #use Display
 
     get '/' do
       env['warden'].authenticate!
       redirect "/home"
+    end
+
+    get '/login' do 
+      erb :login
     end
   end
 end

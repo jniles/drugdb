@@ -1,8 +1,8 @@
-<div class="row" style="margin-top:12em;">
+<div class="row pad-top">
   <div class="large-offset-4 large-4 columns">
-    <form id="chpass_form" action="/auth/<%= @uuid =%>" method="post" name="user">
+    <form action="/auth/login" method="post" name="user">
       <fieldset>
-        <legend>Change Password</legend>
+        <legend>Login</legend>
 
         <div class="row">
           <div class="large-12 columns">
@@ -11,7 +11,7 @@
                 <span class="prefix"><i class="fi-torso"></i></span>
               </div>
               <div class="small-10 columns">
-                <input type="password" placeholder="new_password" name="new_password" id="new_password">
+                <input type="text" placeholder="username" name="username" autofocus>
               </div>
             </div>
           </div>
@@ -24,12 +24,18 @@
                 <span class="prefix"><i class="fi-key"></i></span>
               </div>
               <div class="small-10 columns">
-                <input type="password" name="password_confirm" placeholder="password_confirm" id="password_confirm">
+                <input type="password" name="password" placeholder="password">
               </div>
             </div>
           </div>
         </div>
 
+        <div class="row">
+          <div class="large-12 columns">
+            <button class="button tiny" type="submit">Login</button>
+            <a href="/users/reset/email" style="font-size:0.7em" class="right">Forgot your password?</a>
+          </div>
+        </div>
       </fieldset>
     </form>
   </div>

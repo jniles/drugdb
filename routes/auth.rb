@@ -61,7 +61,7 @@ class Auth < Sinatra::Base
      session[:return_to] = env['warden.options'][:attempted_path] if session[:return_to].nil?
      puts env['warden.options'][:attempted_path]
      puts env['warden']
-     redirect '/login.html'
+     redirect '/login'
    end
 
   get '/auth/logout' do
