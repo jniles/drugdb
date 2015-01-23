@@ -4,7 +4,7 @@ require 'pony'
 # Invalid UTF-8 sequences in the email file(s) require this soln
 require 'iconv' unless String.method_defined?(:encode)
 
-PASSWORDEMAIL = File.join(CONFIG['email_dir'], 'password.reset.erb')
+PASSWORDEMAIL = File.join(CONFIG['install_dir'], "mail/users/password-reset.erb")
 
 class Users < Sinatra::Base
   set :views, Dir.pwd + "/views"

@@ -38,10 +38,12 @@ class OptParse
     options = OpenStruct.new
 
     # Assign config.yaml variables to struct
-    #
-    options.data_path = CONFIG['data_path']
-    options.schema = CONFIG['schema']
-    options.db = CONFIG['db']
+    dir = CONFIG['install_dir']
+
+    # build the proper direcgory structure from the install directory
+    options.data_path = File.join(dir, 'data')
+    options.schema = File.join(dir, 'db/schema')
+    options.db = File.join(dir, 'db/drug.db')
     options.sqlite = CONFIG['sqlite']
 
     # default struct values
@@ -71,7 +73,7 @@ class OptParse
         options.rebuild = true
       end
 
-      opts.on("--rebuild-drugs", "Rebuilds just the cpt code table") do 
+      opts.on("--rebuild-drugs", "Rebuilds just the cpt code table") do
         options.rebuild_drugs = true;
       end
 

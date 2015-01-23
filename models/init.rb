@@ -9,13 +9,8 @@ end
 
 def setup(cfg)
 
-  # Sanitity check
-  if not cfg['db']
-    raise "ERROR: No database specified in config.yaml file.  Please specify a database."
-  end
-
   # Get the database URI and connect
-  url = "sqlite://#{cfg['db']}"
+  url = "sqlite://#{File.join(cfg["install_dir"], "db", "drug.db")}"
   DataMapper.setup :default, url
 
   require "./models/user"

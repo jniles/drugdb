@@ -1,11 +1,9 @@
 # data configuration options
-#
-#
 ---
-data_path: "/home/jniles/code/drugdb/data/"
-db: "/home/jniles/code/drugdb/db/drug.db"
-schema: "/home/jniles/code/drugdb/db/schema"
-email_dir: "/home/jniles/code/drugdb/mail/"
+
+# This is the top level install directory from which all
+# other paths in the application are formed.
+install_dir: "/home/jniles/code/drugdb/"
 
 # parameters for consumption projections
 
