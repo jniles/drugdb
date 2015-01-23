@@ -1,0 +1,54 @@
+<div class="row" style="margin-top:1em;">
+  <div class="large-offset-2 large-8 columns">
+    <form action="/users/create" method="post" name="user">
+      <fieldset>
+        <legend>Add a new user</legend>
+        <div class="row">
+
+          <div class="large-12 columns">
+            <label>Username
+              <input type="text" name="name" placeholder="e.g. admin" required>
+            </label>
+          </div>
+
+          <div class="large-12 columns">
+            <label>Email
+              <input type="email" name="email" placeholder="e.g. admin@plannedparenthood.org" required>
+            </label>
+          </div>
+
+          <div class="large-12 columns">
+            <div class="row collapse">
+              <label>Enter a Password</label>
+              <div class="small-2 columns">
+                <span class="prefix button secondary" disabled="disabled"><i class="fi-lock"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <input id="pw1" type="password" name="password" autofocus>
+              </div>
+            </div>
+          </div>
+
+          <div class="large-12 columns">
+            <div class="row collapse">
+              <label>Retype the Password</label>
+              <div class="small-2 columns">
+                <span class="prefix button secondary" disabled="disabled"><i class="fi-lock"></i></span>
+              </div>
+              <div class="small-10 columns">
+                <input id="pw2" type="password" name="pw2">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <input class="button tiny warning" type="submit" value="Submit">
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<script>(function (win) { win.app.users.listeners(); })(window);</script>

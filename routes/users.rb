@@ -55,13 +55,14 @@ class Users < Sinatra::Base
     # send the email via Pony gem
     Pony.mail(message_params)
   end
+  
+  # Ask for a password reset email to be sent
 
   get '/users/reset/email' do
 
     # render the password email form
     erb :"users/password-email-form", :locals => { :error => nil }
   end
-
 
   post '/users/reset/email' do
 
@@ -91,6 +92,7 @@ class Users < Sinatra::Base
     end
   end
 
+  # reset a user's password from an email
 
   get '/user/:uuid/reset/:token' do
     user = User.first(:id => params[:uuid], :uuid_token => params[:token])
@@ -114,6 +116,27 @@ class Users < Sinatra::Base
       erb :"users/password-reset-success", :locals => { :data => { email: user.email } }
     else
       erb :"users/password-reset-failure"
+    end
+  end
+
+  # functionality to create a new user
+
+  get '/users/create' do
+    erb :"users/create"
+  end
+
+  post '/users/create' do 
+    # attempt to create a user
+
+    begin
+      user = User.create({ :name => params[:name], :email => params[:email], :password => params[:password], :created => Time.now})
+      if user.saved?
+        erb :"users/create-success", :locals => { :data => { user: user } }
+      else
+        throw "Not saved"
+      end
+    rescue
+      erb :"users/create-error"
     end
   end
 end
