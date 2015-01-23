@@ -5,7 +5,7 @@
       <label>Select Health Center:
         <select id="hc_select">
           <% @hc_data.each_with_index do |center, index| %>
-            <option <% if index == 1 %>selected<%end%>value="<%= center[:center_name] %>"><%= center[:center_name] %></option>
+            <option <% if index == 1 %>selected<%end%> value="<%= center[:center_name] %>"><%= center[:center_name] %></option>
           <%end%>
         </select>
       </label>
@@ -19,7 +19,7 @@
           <tr class="blue">
             <th colspan="4">Drugs in <%= center[:center_name] %></th>
             <th style="text-align: right;">
-              <a class="zero_count_hide" style="color:#fff">
+              <a class="zeroCountToggle" style="color:#fff">
                 <i class="fi fi-filter"></i> Show/Hide Zero Counts
               </a>
             </th>
