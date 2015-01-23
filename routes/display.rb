@@ -48,7 +48,7 @@ class DrugDisplay < Sinatra::Base
 			end
 			@hc_data.push({:center_name => health_center.name, :drugs => drug_data})
 		end
-		erb :test
+		erb :drugs
   end
 
 	get '/data/sales/:health_center/:cpt' do

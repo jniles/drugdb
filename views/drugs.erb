@@ -1,17 +1,27 @@
 <div class="container">
-	<p>Select Health Center:
-		<select id="hc_select">
-	<% @hc_data.each_with_index do |center, index| %>
-			<option <% if index == 1 %>selected<%end%>value="<%= center[:center_name] %>"><%= center[:center_name] %></option>
-		<%end%>
-	</select>
-	</p>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <label>Select Health Center:
+        <select id="hc_select">
+          <% @hc_data.each_with_index do |center, index| %>
+            <option <% if index == 1 %>selected<%end%>value="<%= center[:center_name] %>"><%= center[:center_name] %></option>
+          <%end%>
+        </select>
+      </label>
+    </div>
+  </div>
+
 	<% for center in @hc_data do %>
 		<table class="hidden hc_table" id="<%=center[:center_name]%>">
 			<thead>
-				<tr>
-					<td>All Drugs</td>
-					<td><a class="zero_count_hide">Show/Hide Zero Counts</a></td>
+				<tr class="blue">
+          <th colspan="4">Drugs in <%= center[:center_name] %></th>
+          <th style="text-align: right;">
+            <a class="zero_count_hide" style="color:#fff">
+              <i class="fi fi-filter"></i> Show/Hide Zero Counts
+            </a>
+          </th>
 				</tr>
 			</thead>
 			<tr>
