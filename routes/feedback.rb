@@ -1,5 +1,5 @@
-# This module is responsible for allowing users to submit feedback
 
+# This module is responsible for allowing users to submit feedback
 class Feedback < Sinatra::Base
   #
   # Feedback Routes
