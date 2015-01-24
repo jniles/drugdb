@@ -30,7 +30,7 @@ module SST
     # middleware
     use Auth
     use Home
-    use Users 
+    use Users
     use Feedback
     use Corrections
     use DrugDisplay
@@ -40,8 +40,15 @@ module SST
       redirect '/home'
     end
 
-    get '/login' do 
+    get '/login' do
       erb :login
+    end
+
+    # TODO
+    # Let's decide on a better way of doing this,
+    # shall we?  It is potentially quite confusing.
+    not_found do
+      redirect '/home'
     end
   end
 end
