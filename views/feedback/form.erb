@@ -1,0 +1,30 @@
+<div class="row" style="margin-top:1em;">
+  <div class="alert-box info">
+    <p>
+      If you have any feedback or suggestions which might make Drug Inventory a better
+      product, please enter them in the comment box below.  Your suggestsions will be emailed to the
+      development team for future improvements or bug fixes.
+    </p>
+  </div>
+
+  <form action="/feedback/submit" method="post" name="corrections">
+    <fieldset>
+      <legend>User Feedback Form</legend>
+      <div class="row">
+
+        <div class="large-12 columns">
+          <label>Comments
+            <textarea name="comment" placeholder="Submit your comments here!" rows="10" required></textarea>
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-12 columns">
+          <input type="submit" class="button tiny success" value="Submit Comments">
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+</div>

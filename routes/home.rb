@@ -5,14 +5,14 @@
 # taken shape.
 
 require 'ostruct'
-require 'time' 
+require 'time'
 
 class Home < Sinatra::Base
   #
   # Home Routes
   #
 
-	set :views, Dir.pwd + "/views"
+  set :views, Dir.pwd + "/views"
   startup = Time.now  # this is set at app startup
 
   # Calculate the uptime, given a startime
@@ -23,7 +23,7 @@ class Home < Sinatra::Base
   end
 
   get '/home' do
-		env['warden'].authenticate!
+    env['warden'].authenticate!
     data = OpenStruct.new
     data.user = env['warden'].user
     data.startup = startup
