@@ -28,6 +28,6 @@ class Home < Sinatra::Base
     data.user = env['warden'].user
     data.startup = startup
     data.uptime = uptime(startup)
-    erb :'home/home', :locals => { data: data }
+    erb :'home/home', locals: { data: data }
   end
 end
