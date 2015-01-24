@@ -13,8 +13,8 @@ require './models/count'
 
 class InventoryCountsParser
 
-  MODULE = "PARSER - INVENTORY"
-  FILENAME  = "Inventory Counts.xlsx"
+  MODULE = 'PARSER - INVENTORY'
+  FILENAME  = 'Inventory Counts.xlsx'
 
   def _ensure(file)
     File.file?(file)
@@ -28,8 +28,8 @@ class InventoryCountsParser
 
     # Ensure the file's existence
     path = File.join(@options.data_path, folder, FILENAME)
-    if not _ensure(path)
-      raise "Could not find locate #{path}.  Does it exist?"
+    unless _ensure(path)
+      fail "Could not find locate #{path}.  Does it exist?"
     end
 
     # Open the workbook
@@ -37,11 +37,11 @@ class InventoryCountsParser
     stdout("Initialized new workbook from: '#{path}'")
   end
 
-  def parse()
+  def parse
     if @options.all_centers
-      stdout("Parsing all health centers in file.")
+      stdout('Parsing all health centers in file.')
       HealthCenter.all.each do |health_center|
-        parseSheet(health_center)
+        parse_sheet(health_center)
       end
     elsif @options.centers
       @options.centers.each do |center|
@@ -49,15 +49,15 @@ class InventoryCountsParser
         if health_center.nil?
           stdout("Warning: Could not find health center #{center}")
         else
-          parseSheet(health_center)
+          parse_sheet(health_center)
         end
       end
     else
-      raise "No worksheets specified to parse!"
+      fail 'No worksheets specified to parse!'
     end
   end
 
-  def parseSheet(center)
+  def parse_sheet(center)
     stdout("Parsing : #{center.name}")
     data = @workbook[center.name].extract_data
 
@@ -78,12 +78,12 @@ class InventoryCountsParser
       # difficult and the RubyXL gem often includes random arrays of
       # nil values.  So, we check whether the array exist, is empty,
       # or only contains nil values.
-      if not row.nil? || row.empty? || row.all? {|e| e.nil? }
+      if !row.nil? || row.empty? || row.all? {|e| e.nil? }
         drug_code = Cpt.get(row[2])
-        if not drug_code.nil?
+        if !drug_code.nil?
           date = Date.parse(row[4].to_s)
           begin
-            Count.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+            Count.create(cpt: drug_code, count: row[3], date: date, health_center: center)
           rescue
           end
         else
@@ -100,8 +100,7 @@ class InventoryCountsParser
   end
 
   def stdout(data)
-    if @options.verbose
-      puts "[#{MODULE}][#{Time.new.strftime('%I:%M:%S')}] #{data}."
-    end
+    return unless @options.verbose
+    puts "[#{ MODULE }][#{Time.new.strftime('%I:%M:%S')}] #{ data }."
   end
 end

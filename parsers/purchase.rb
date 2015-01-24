@@ -86,7 +86,7 @@ class PurchaseParser
         if not drug_code.nil?
           date = Date.parse(row[4].to_s)
           begin
-            Purchase.create({:cpt => drug_code, :count => row[3], :date => date, :health_center => center})
+            Purchase.create({cpt: drug_code, count: row[3], date: date, health_center: center})
           rescue
           end
         else

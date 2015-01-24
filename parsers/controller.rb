@@ -71,27 +71,27 @@ class Controller
     # populate table `users`
     uparser = XLSParser.new(File.join(path, "user.xls"), "user")
     uparser.read(1).each do |row|
-      User.create(:id => row[0], :name => row[1], :email => row[2], :password => row[3], :created => Time.now)
+      User.create(id: row[0], name: row[1], email: row[2], password: row[3], created: Time.now)
     end
 
     # populate table `managers`
     mparser = XLSParser.new(File.join(path, "manager.xls"), "manager")
     mparser.read(1).each do |row|
-      Manager.create(:id => row[0], :name => row[1], :email=> row[2])
+      Manager.create(id: row[0], name: row[1], email: row[2])
     end
 
     # populate table `health_centers`
     hparser = XLSParser.new(File.join(path, "health_center.xls"), "health_center")
     hparser.read(1).each do |row|
       manager = Manager.get(row[2])
-      HealthCenter.create(:id => row[0], :name => row[1], :manager => manager)
+      HealthCenter.create(id: row[0], name: row[1], manager: manager)
     end
 
     # populate tables `cpt` and `drugs`
     dparser = XLSParser.new(File.join(path, "drug.xls"), "drug")
     dparser.read(1).each do |row|
-      drug = Drug.create(:name => row[1])
-      Cpt.create(:code => row[0], :drug => drug)
+      drug = Drug.create(name: row[1])
+      Cpt.create(code: row[0], drug: drug)
     end
 
     # We now have all the init data and can exit gracefully.
@@ -152,8 +152,8 @@ class Controller
     n = Cpt.all.length
     dparser.read(1).each do |row|
       begin
-        drug = Drug.create(:name => row[1])
-        Cpt.create(:code => row[0], :drug => drug)
+        drug = Drug.create(name: row[1])
+        Cpt.create(code: row[0], drug: drug)
       rescue
       end
     end
