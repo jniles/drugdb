@@ -29,7 +29,7 @@ class Users < Sinatra::Base
   def send_reset_email(data)
 
     # compose the reset URL
-    data[:url] = 'http://localhost:#{settings.port}/user/#{data[:user].id}/reset/#{data[:token]}'
+    data[:url] = "http://localhost:#{settings.port}/user/#{data[:user].id}/reset/#{data[:token]}"
 
     # template the email message
     templateString = File.read(PASSWORDEMAIL)
@@ -99,7 +99,7 @@ class Users < Sinatra::Base
     if not user.nil?
       erb :'users/password-new', locals: { data: { user: user, token: params[:token] } }
     else
-      url = 'http://localhost:#{settings.port}/users/reset/email'
+      url = "http://localhost:#{settings.port}/users/reset/email"
       erb :'users/password-token-expired', locals: { data: { url: url } }
     end
 

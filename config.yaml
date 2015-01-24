@@ -21,7 +21,8 @@ minimum: 30
 # email configuration
 # Uncomment for the NCF network
 email: {
-  sender: "admin@drugdb"
+  sender: "admin@drugdb",
+  admin: "jonathan.niles@ncf.edu"
   #via: :smtp,
   #via_options: {
   #  address: "smtp.ncf.edu",

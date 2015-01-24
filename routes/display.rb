@@ -11,18 +11,27 @@ class DrugDisplay < Sinatra::Base
     health_centers = HealthCenter.all
     cpts = Cpt.all
 
-    @hc_data = [] # here's where we store the health center stuff...group by
+    # here's where we store the health center stuff...group by
+    @hc_data = []
 
     health_centers.each do |health_center|
-      drug_data = [] # this is where we'll put our data for drugs
+
+      # this is where we'll put our data for drugs
+      drug_data = []
       cpts.each do |cpt|
-        all_counts = Count.all(cpt: cpt, health_center: health_center, order: [:date.asc]).to_a # get all counts associated to this one, for plotting, in ascending order
+
+        # get all counts associated to this one, for plotting, in ascending order
+        all_counts = Count.all(cpt: cpt, health_center: health_center, order: [:date.asc]).to_a
         if all_counts.length > 0
 
           # now get all sales for this cpt
-          all_sales = Sale.all(cpt: cpt, :date.gte => all_counts[-1].date, health_center: health_center, order: [:date.asc]) # get all sales that are newer than the last count
+          # get all sales that are newer than the last count
+          all_sales = Sale.all(cpt: cpt, :date.gte => all_counts[-1].date, health_center: health_center, order: [:date.asc])
+
           all_purchases = Purchase.all(cpt: cpt, :date.gte => all_counts[-1].date, health_center: health_center, order: [:date.asc])
-          current_count = { count: all_counts[-1].count,date: all_counts[-1].date } # this is going to be the one we append to the end of all_counts
+
+          # this is going to be the one we append to the end of all_counts
+          current_count = { count: all_counts[-1].count,date: all_counts[-1].date }
           all_corrections = Correction.all(cpt: cpt, :date.gte => all_counts[-1].date, health_center: health_center, order: [:date.asc])
 
           # We set it to the date of the last count
@@ -72,7 +81,9 @@ class DrugDisplay < Sinatra::Base
             vendor: cpt.drug.vendor
           }
         end
-        drug_data.push(cpt_hash) # put it here so we can iterate through in the template
+
+        # put it here so we can iterate through in the template
+        drug_data.push(cpt_hash)
       end
       @hc_data.push({ center_name: health_center.name, drugs: drug_data })
     end
@@ -86,7 +97,9 @@ class DrugDisplay < Sinatra::Base
 
     health_center = HealthCenter.all(name: params[:health_center])
     cpt = Cpt.all(code: params[:cpt])
-    all_sales = Sale.all(cpt: cpt, health_center: health_center, order: [:date.asc]).to_a # get all sales
+
+    # get all sales
+    all_sales = Sale.all(cpt: cpt, health_center: health_center, order: [:date.asc]).to_a
 
     # now make stuff
     drug_data = { count: all_sales.map { |x| x.count }, date: all_sales.map { |x| x.date.strftime('%b %d %Y') } }
