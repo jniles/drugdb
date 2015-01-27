@@ -41,17 +41,17 @@ class Feedback < Sinatra::Base
 
     # set the mail server parameters (from config.yaml)
     message_params= {
-      from: CONFIG['email']['sender'],
-      to: CONFIG['email']['admin'],
+	    from: CONFIG['email'][0]['sender'], #YAML syntax quirk - when you make a hash, you get a list of hashes with one element. Why? Because Ruby.
+      to: CONFIG['email'][0]['admin'],
       subject: "[Drug Inventory] #{ data[:user].name } provided some feedback.",
       html_body: escape(template)
     }
 
     # if we have specified the 'via' methods for delivery,
     # make sure to pass those to Pony
-    if CONFIG['email']['via']
-      message_params['via'] = CONFIG['email']['via']
-      message_params['via_options'] = CONFIG['email']['via_options']
+    if CONFIG['email'][0]['via']
+      message_params[:via] = CONFIG['email'][0]['via']
+      message_params[:via_options] = CONFIG['email'][0]['via_options'][0]
     end
 
     # send the email via Pony gem
