@@ -3,7 +3,7 @@
 
 # This is the top level install directory from which all
 # other paths in the application are formed.
-install_dir: "/home/jniles/code/drugdb/"
+install_dir: "C:/Users/Vinushka/Documents/GitHub/newPP/Planned-Parenthood-Drug-Inventory/"
 
 # parameters for consumption projections
 
@@ -20,14 +20,14 @@ minimum: 30
 
 # email configuration
 # Uncomment for the NCF network
-email: {
-  sender: "admin@drugdb",
-  admin: "jonathan.niles@ncf.edu"
-  #via: :smtp,
-  #via_options: {
-  #  address: "smtp.ncf.edu",
-  #  port: "25",
-  #  authentication: :plain,
-  #  domain: "10.10.11.15"
-  #}
-}
+email:
+ - 
+  sender: "admin@drugdb"
+  admin: "stefan.schalk12@ncf.edu"
+  via: :smtp
+  via_options: 
+   - 
+    :address: "smtp.ncf.edu"
+    :port: "25"
+    :authentication: :plain
+    :domain: "10.10.11.15"
