@@ -44,14 +44,13 @@
                                         <th style="border-right: 1px solid black;">Drug Name</th>
                                         <th style="border-right: 1px solid black;">CPT</th>
                                         <th style="border-right: 1px solid black; padding : 2px">Current Stock</th>
-                                        <th style="border-right: 1px solid black; padding : 2px">Consumption Rate</th>
-                                        <th>Stock Out</th>
+                                        <th style="border-right: 1px solid black; padding : 2px">Time Until Stock Out (days)</th>
                                       </tr>
                                     </thead>
-                                    <tbody>
-                                      <% data['alerts'].each do |alert| %>
+				    <tbody>
+                                      <% data[:alerts].each do |alert| %>
                                         <tr>
-                                          <% alert.each do |k, v| %>
+                                          <% alert.each do |v| %>
                                             <td style="padding:2px;border:1px solid black;border-bottom:0;border-left:0;" align="center"><%= v %></td>
                                           <% end %>
                                         </tr>
