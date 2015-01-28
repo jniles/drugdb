@@ -37,7 +37,7 @@ class Users < Sinatra::Base
 
     # set the mail server parameters (from config.yaml)
     message_params= {
-      from: CONFIG['email']['sender'],
+      from: CONFIG['email'][0]['sender'], #make sure to keep track of the YAML syntax quirks
       to: params[:email],
       subject: '[DRUGDB] Password Reset Request',
       html_body: escape(template)
@@ -45,9 +45,9 @@ class Users < Sinatra::Base
 
     # if we have specified the 'via' methods for delivery,
     # make sure to pass those to Pony
-    if CONFIG['email']['via']
-      message_params['via'] = CONFIG['email']['via']
-      message_params['via_options'] = CONFIG['email']['via_options']
+    if CONFIG['email'][0]['via']
+      message_params[:via] = CONFIG['email'][0]['via'] #symbols are important
+      message_params[:via_options] = CONFIG['email'][0]['via_options'][0]
     end
 
     # send the email via Pony gem
