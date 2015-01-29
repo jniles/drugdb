@@ -19,6 +19,7 @@ def setup(cfg)
   require "./models/drug"
   require "./models/cpt"
   require "./models/correction"
+  require "./models/last_date"
   require "./models/count"
   require "./models/purchase"
   require "./models/sale"
