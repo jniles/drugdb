@@ -1,5 +1,5 @@
 #Keep track of the last date we updated stuff in this DB
-
+require 'dm-sqlite-adapter' #so that dailyscript stops whining
 class LastDate
 
 	include Datamapper::Resource
