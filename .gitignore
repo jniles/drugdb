@@ -12,7 +12,7 @@ db/drug.db
 
 # untrack all .idea files
 .idea/
-*~lock
+*.lock
 
 # ignore partial emails
 email/*.html
