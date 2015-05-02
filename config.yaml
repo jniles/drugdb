@@ -3,7 +3,7 @@
 
 # This is the top level install directory from which all
 # other paths in the application are formed.
-install_dir: "C:/Users/Vinushka/Documents/GitHub/newPP/Planned-Parenthood-Drug-Inventory/"
+install_dir: "/home/jniles/code/drugdb/"
 
 # parameters for consumption projections
 
@@ -23,7 +23,7 @@ minimum: 30
 email:
  - 
   sender: "admin@drugdb"
-  admin: "stefan.schalk12@ncf.edu"
+  admin: "admin"
   via: :smtp
   via_options: 
    - 
