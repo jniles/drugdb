@@ -19,3 +19,12 @@ table { width:100%;}
 .row.pad-top {
   margin-top: 4em;
 }
+
+.contain-to-grid {
+  border-bottom: 3px solid rgb(6, 99, 6);
+  background : none repeat scroll 0% 0% rgb(0, 0, 0);
+}
+
+.contain-to-grid .top-bar {
+  background : inherit;
+}
